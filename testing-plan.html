@@ -1,0 +1,408 @@
+<title>Placed - Usability Test Plan</title>
+<style>
+  :root{
+    --bg:#F7F5FA; --card:#FFFFFF; --ink:#211C33; --muted:#8B85A0; --line:#E8E6EE;
+    --sky:#D9E4FF; --skyT:#2A4E8F; --lilac:#DCD4FA; --lilacT:#4E3A9E;
+    --butter:#FDEBB4; --butterT:#8A6400; --peach:#FFE0C7; --peachT:#9A5320;
+    --sage:#CFEBD6; --sageT:#2C6B45; --rose:#FCD5E2; --roseT:#A63A5F;
+    --fog:#E8E6EE; --fogT:#6E6885;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141220; --card:#1E1B2C; --ink:#EFECF7; --muted:#A49DBB; --line:#2E2A40;
+      --sky:#22335C; --skyT:#A9C6FF; --lilac:#2E2650; --lilacT:#C9BDF5;
+      --butter:#3D3113; --butterT:#F6D98A; --peach:#402A1B; --peachT:#FFC9A3;
+      --sage:#1D3A28; --sageT:#A5DDB9; --rose:#3D1F2B; --roseT:#F5AFC4;
+      --fog:#2A2740; --fogT:#B4AECB;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141220; --card:#1E1B2C; --ink:#EFECF7; --muted:#A49DBB; --line:#2E2A40;
+    --sky:#22335C; --skyT:#A9C6FF; --lilac:#2E2650; --lilacT:#C9BDF5;
+    --butter:#3D3113; --butterT:#F6D98A; --peach:#402A1B; --peachT:#FFC9A3;
+    --sage:#1D3A28; --sageT:#A5DDB9; --rose:#3D1F2B; --roseT:#F5AFC4;
+    --fog:#2A2740; --fogT:#B4AECB;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+    line-height:1.5;font-size:16px}
+  .wrap{max-width:820px;margin:0 auto;padding:48px 22px 88px}
+  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:38px;line-height:1.08;letter-spacing:-.9px;margin:10px 0}
+  .sub{color:var(--muted);font-size:16.5px;max-width:58ch;margin-bottom:38px}
+  h2{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin:48px 0 14px}
+  p{margin:9px 0}
+  ul{margin:9px 0;padding-left:0;list-style:none}
+  li{margin:7px 0;padding-left:20px;position:relative}
+  li::before{content:"";position:absolute;left:5px;top:9px;width:6px;height:6px;border-radius:50%;
+    background:var(--lilacT);opacity:.5}
+  .grid{display:grid;gap:12px;margin:14px 0}
+  @media(min-width:640px){.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+  .stat{text-align:center;padding:18px 12px}
+  .stat .n{font-size:28px;font-weight:700;letter-spacing:-.6px;line-height:1}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:5px}
+
+  .aud{display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+  .aud:last-child{border-bottom:none}
+  .aud .ic{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .aud .ic svg{width:18px;height:18px}
+  .aud .b{font-size:15px;font-weight:600}
+  .aud .b small{display:block;font-weight:400;color:var(--muted);font-size:13.5px;margin-top:3px}
+
+  .mod{background:var(--sky);color:var(--skyT);border-radius:14px;padding:14px 16px;margin:12px 0;font-size:14.5px}
+  .mod .lab{display:flex;gap:7px;align-items:center;font-size:10.5px;font-weight:700;letter-spacing:1.2px;
+    text-transform:uppercase;opacity:.78;margin-bottom:8px}
+  .mod .lab svg{width:14px;height:14px}
+  .mod p{margin:8px 0}
+  .mod p:first-of-type{margin-top:0}
+  .mod p:last-child{margin-bottom:0}
+
+  .steps{counter-reset:s;margin:14px 0}
+  .stp{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+  .stp:last-child{border-bottom:none}
+  .stp .num{counter-increment:s;width:26px;height:26px;border-radius:50%;background:var(--lilac);color:var(--lilacT);
+    font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .stp .num::before{content:counter(s)}
+  .stp .b{font-size:15px}.stp .b small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+  .task{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0}
+  .th{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+  .badge{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .badge svg{width:20px;height:20px}
+  .tt{font-size:18px;font-weight:700;letter-spacing:-.2px;line-height:1.2}
+  .tt small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .say{background:var(--fog);color:var(--ink);padding:12px 14px;border-radius:12px;margin:12px 0;font-size:14.5px;font-weight:600}
+  .say::before{content:"“"}.say::after{content:"”"}
+  .flow{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:12px 0;font-size:12px}
+  .step{background:var(--fog);color:var(--fogT);padding:5px 9px;border-radius:8px;font-weight:600;white-space:nowrap}
+  .step.d{background:var(--butter);color:var(--butterT)}
+  .step.e{background:var(--sage);color:var(--sageT)}
+  .arw{color:var(--muted);font-size:11px}
+  .crit{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);
+    margin:18px 0 2px;padding-top:14px;border-top:1px solid var(--line)}
+  .measure{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .measure:last-of-type{border-bottom:none}
+  .measure svg{width:18px;height:18px;flex:0 0 auto;color:var(--muted)}
+  .pass{display:flex;gap:9px;align-items:flex-start;background:var(--sage);color:var(--sageT);
+    padding:12px 14px;border-radius:12px;margin-top:12px;font-size:14px}
+  .pass svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px}
+  .look{display:flex;gap:9px;align-items:flex-start;background:var(--butter);color:var(--butterT);
+    padding:12px 14px;border-radius:12px;margin-top:12px;font-size:14px}
+  .look svg{width:17px;height:17px;flex:0 0 auto;margin-top:1px}
+  .callout{display:flex;gap:10px;align-items:flex-start;border-radius:14px;padding:14px 16px;margin:16px 0;font-size:14.5px}
+  .callout svg{width:18px;height:18px;flex:0 0 auto;margin-top:1px}
+  .c-rose{background:var(--rose);color:var(--roseT)}
+  .c-sky{background:var(--sky);color:var(--skyT)}
+  .scroll{overflow-x:auto;margin:14px 0}
+  table{border-collapse:collapse;width:100%;min-width:440px;font-size:14px}
+  th,td{text-align:left;padding:10px 11px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .q{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .q:last-child{border-bottom:none}
+  .q .mark{width:23px;height:23px;border-radius:8px;background:var(--lilac);color:var(--lilacT);flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700}
+  .card .q .mark{background:var(--sky);color:var(--skyT)}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+
+<div class="wrap">
+
+<div class="eyebrow">Placement Companion</div>
+<h1>Placed - usability test plan</h1>
+<p class="sub">Five moderated tasks, with the script to read and the questions to ask. Each task is a separate scenario with its own starting point in the Figma prototype.</p>
+
+<div class="grid c3">
+  <div class="card stat"><div class="n">5</div><div class="l">tasks</div></div>
+  <div class="card stat"><div class="n">16</div><div class="l">participants</div></div>
+  <div class="card stat"><div class="n">50<span style="font-size:15px">min</span></div><div class="l">per session</div></div>
+</div>
+
+<h2>Who we test with</h2>
+<div class="card">
+  <div class="aud">
+    <div class="ic" style="background:var(--sky);color:var(--skyT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+    </div>
+    <div class="b">College students - primary audience
+      <small>Final-year students who are applying, or about to. They do all five tasks. The findings from this group decide what changes.</small></div>
+  </div>
+  <div class="aud">
+    <div class="ic" style="background:var(--lilac);color:var(--lilacT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg>
+    </div>
+    <div class="b">Placement cell and faculty - expert review
+      <small>They know the process end to end. They check whether the app matches how drives actually run, not whether it's easy to use.</small></div>
+  </div>
+</div>
+
+<h2>Opening script</h2>
+<p style="color:var(--muted);margin-top:-4px">Read this out at the start. Keep it close to the wording - changing it between sessions changes the results.</p>
+<div class="mod">
+  <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+  <p>Thanks for making time - this will take about 50 minutes.</p>
+  <p>I'm testing a design for a placement tracking app called Placed. I'm not testing you, and I didn't build this to have it praised. I need to find where it breaks. So there's no wrong answer here, and if something confuses you, that's exactly what I need to hear.</p>
+  <p>Please think aloud as you go. Say what you're looking at, what you expect to happen, and what you're about to tap - even if it turns out to be wrong.</p>
+  <p>This is a prototype, so only some parts respond. If you tap something and nothing happens, just tell me what you were trying to do and I'll move us along.</p>
+  <p>Is it okay if I record the screen and the audio? It stays with me and is only used for this project.</p>
+  <p>Before we open anything - walk me through how you keep track of placement applications right now.</p>
+</div>
+
+<div class="steps card">
+  <div class="stp"><div class="num"></div><div class="b">Consent and recording
+    <small>Get a clear yes before you start recording anything.</small></div></div>
+  <div class="stp"><div class="num"></div><div class="b">Warm-up - 3 minutes
+    <small>The last line above. Capture their current method before showing any screen.</small></div></div>
+  <div class="stp"><div class="num"></div><div class="b">Open each task at its own start point
+    <small>Five separate flows in the Figma play menu. Don't run them as one story.</small></div></div>
+  <div class="stp"><div class="num"></div><div class="b">Stay quiet while they work
+    <small>Only prompt if they've been stuck 30 seconds. Note it as assisted when you do.</small></div></div>
+  <div class="stp"><div class="num"></div><div class="b">Questions, then an ease rating
+    <small>Ask the task's questions, then rate ease 1–7, before moving on.</small></div></div>
+</div>
+
+<div class="mod">
+  <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Say this between every task</div>
+  <p>That's the end of that one. The next task is a separate situation - treat it as a fresh day. You'll see some of the same companies at a different stage, and that's on purpose, not a mistake.</p>
+</div>
+
+<h2>The five tasks</h2>
+
+<!-- 1 -->
+<div class="task">
+  <div class="th">
+    <div class="badge" style="background:var(--sky);color:var(--skyT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
+    </div>
+    <div class="tt">1 · Connect your inbox<small>All participants · about 8 minutes</small></div>
+  </div>
+  <p style="color:var(--muted);font-size:14.5px;margin-top:0">First run. Tests whether students see why a tracked inbox matters - and how many refuse or skip.</p>
+
+  <div class="mod">
+    <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+    <p>You've just downloaded Placed for the first time. Nothing is set up yet.</p>
+  </div>
+  <div class="say">Set Placed up, and connect the email you actually use to apply for jobs - not necessarily your college ID.</div>
+  <div class="flow"><span class="step">Onboarding</span><span class="arw">→</span><span class="step d">Which inbox</span><span class="arw">→</span><span class="step">Connect</span><span class="arw">→</span><span class="step">Confirmed</span><span class="arw">→</span><span class="step d">Passport?</span><span class="arw">→</span><span class="step e">Home</span></div>
+
+  <div class="scroll"><table>
+    <tr><th>They choose</th><th>What happens</th><th>Ends at</th></tr>
+    <tr><td>Gmail</td><td>Consent, then 3 placement emails already found</td><td>Home, tracking on</td></tr>
+    <tr><td>Another email</td><td>Provider list, Outlook connected</td><td>Home, tracking on</td></tr>
+    <tr><td>More than one</td><td>Connect first, then add second</td><td>Home, tracking on</td></tr>
+    <tr><td>Skip</td><td>Shown what stops working</td><td>Home, tracking off</td></tr>
+  </table></div>
+
+  <div class="crit">Criteria to measure</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>How many connect an inbox - log refusals separately</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>Passport filled now, or skipped</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>Which branch they take, and how long they hesitate</div>
+  <div class="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><div>Passes if <b>12 of 16</b> connect an inbox unaided, and every participant can say what access they just gave.</div></div>
+
+  <div class="crit">Ask after the task</div>
+  <div class="q"><div class="mark">1</div><div>In your own words, what did you just give the app access to?</div></div>
+  <div class="q"><div class="mark">2</div><div>Would you do this with your real email? If not, what's stopping you?</div></div>
+  <div class="q"><div class="mark">3</div><div>It said it found 3 placement emails. What did that tell you?</div></div>
+  <div class="q"><div class="mark">4</div><div>If they skipped - what made you skip that step?</div></div>
+
+  <div class="look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  Watch whether <b>“3 placement emails found”</b> registers. It's the only moment the app proves its worth instead of describing it.</div>
+</div>
+
+<!-- 2 -->
+<div class="task">
+  <div class="th">
+    <div class="badge" style="background:var(--lilac);color:var(--lilacT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-2h6l2 2h3v12H4z"/><circle cx="12" cy="13" r="3.2"/></svg>
+    </div>
+    <div class="tt">2 · Capture your first job<small>All participants · about 10 minutes · no resumes yet</small></div>
+  </div>
+  <p style="color:var(--muted);font-size:14.5px;margin-top:0">The core loop, run cold. Tests whether the floating widget is findable and whether flagged fields get noticed.</p>
+
+  <div class="mod">
+    <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+    <p>You're on your phone between classes, scrolling for openings. You haven't added any resumes to the app yet.</p>
+  </div>
+  <div class="say">You've found a job posting you're interested in. Get it into the app.</div>
+  <div class="flow"><span class="step">Explainer</span><span class="arw">→</span><span class="step">Chrome</span><span class="arw">→</span><span class="step">Search</span><span class="arw">→</span><span class="step">Posting</span><span class="arw">→</span><span class="step">Reading</span><span class="arw">→</span><span class="step d">Review</span><span class="arw">→</span><span class="step e">Journey</span></div>
+
+  <div class="crit">Criteria to measure</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Time to find the capture button, and wrong taps first</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Is the flagged Deadline corrected before saving?</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7"/></svg>Do they act on the “no resumes yet” prompt, or ignore it?</div>
+  <div class="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><div>Passes if <b>13 of 16</b> capture the job unaided in under 90 seconds, with the flagged deadline corrected.</div></div>
+
+  <div class="crit">Ask after the task</div>
+  <div class="q"><div class="mark">1</div><div>Where did you expect the capture button to be?</div></div>
+  <div class="q"><div class="mark">2</div><div>Could you use that on any website, or only inside Placed?</div></div>
+  <div class="q"><div class="mark">3</div><div>Was anything on the review screen wrong, or missing?</div></div>
+  <div class="q"><div class="mark">4</div><div>What would you do next with this job?</div></div>
+</div>
+
+<!-- 3 -->
+<div class="task">
+  <div class="th">
+    <div class="badge" style="background:var(--butter);color:var(--butterT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>
+    </div>
+    <div class="tt">3 · Apply and update the status<small>Students with 2+ resumes · about 12 minutes</small></div>
+  </div>
+  <p style="color:var(--muted);font-size:14.5px;margin-top:0">Skip anyone with no resumes - the choice wouldn't mean anything. Gmail is connected here, so tracking works.</p>
+
+  <div class="mod">
+    <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+    <p>You saved this job a few days ago and haven't applied yet. You have four resume versions in the app, and about twenty minutes free right now.</p>
+  </div>
+  <div class="say">Open the job you've saved but not applied to, decide which resume to send, apply - then make sure the app knows.</div>
+  <div class="flow"><span class="step">Journey</span><span class="arw">→</span><span class="step d">Job detail</span><span class="arw">→</span><span class="step">Compare 4</span><span class="arw">→</span><span class="step">Portal</span><span class="arw">→</span><span class="step d">Did you apply?</span><span class="arw">→</span><span class="step e">Applied</span></div>
+
+  <div class="crit">Criteria to measure</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Accept the suggestion, or open the picker - the headline number</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>Can they say <em>why</em> V5 was suggested?</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/></svg>Does the job get marked as applied without prompting?</div>
+  <div class="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><div>Passes if <b>8 of 10</b> reach Applied status without being reminded to update the app.</div></div>
+
+  <div class="crit">Ask after the task</div>
+  <div class="q"><div class="mark">1</div><div>Why did you send that resume and not one of the others?</div></div>
+  <div class="q"><div class="mark">2</div><div>The app suggested one. Why do you think it picked that one?</div></div>
+  <div class="q"><div class="mark">3</div><div>After you submitted on the portal - how does the app know you applied?</div></div>
+  <div class="q"><div class="mark">4</div><div>If you'd closed the app right after applying, what would have happened?</div></div>
+
+  <div class="look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  After “Submit application”, <b>say nothing at all</b>. Silence is the only honest read of the return prompt - the weakest link in the product.</div>
+</div>
+
+<!-- 4 -->
+<div class="task">
+  <div class="th">
+    <div class="badge" style="background:var(--peach);color:var(--peachT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M10.5 21a2 2 0 0 0 3 0"/></svg>
+    </div>
+    <div class="tt">4 · Trust an automatic update<small>All participants · about 8 minutes</small></div>
+  </div>
+  <p style="color:var(--muted);font-size:14.5px;margin-top:0">A status changed on its own. Tests whether students check automated claims or take them on faith.</p>
+
+  <div class="mod">
+    <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+    <p>It's a normal evening. You applied to a few companies last week. Your phone buzzes.</p>
+  </div>
+  <div class="say">A notification says Adobe shortlisted you. Open it, and decide whether you believe it.</div>
+  <div class="flow"><span class="step">Lock screen</span><span class="arw">→</span><span class="step">Job detail</span><span class="arw">→</span><span class="step d">Why this changed</span><span class="arw">→</span><span class="step e">Kept</span><span class="arw">/</span><span class="step e">Reverted</span></div>
+  <p style="font-size:14.5px;color:var(--muted)">Adobe wrote <em>“moving your profile forward for review.”</em>
+  Placed read that as <b style="color:var(--ink)">Shortlisted</b>. The screen shows the source, the exact wording,
+  and what the app did - without arguing either way.</p>
+
+  <div class="crit">Criteria to measure</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>Do they open “How did we know?” at all?</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg>Accept or reject, once they've read the wording</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How long they spend on the quoted sentence</div>
+  <div class="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><div>Passes if <b>12 of 16</b> read the source wording before accepting or rejecting the change.</div></div>
+
+  <div class="crit">Ask after the task</div>
+  <div class="q"><div class="mark">1</div><div>Do you believe that status is right? What made you decide?</div></div>
+  <div class="q"><div class="mark">2</div><div>What did Adobe actually say, in your own words?</div></div>
+  <div class="q"><div class="mark">3</div><div>If this had been wrong, what would have gone wrong for you?</div></div>
+  <div class="q"><div class="mark">4</div><div>Should the app change the status on its own, or ask you first?</div></div>
+
+  <div class="look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  Watch for any pause at the quoted sentence. If nobody hesitates, automatic status changes are being trusted blindly.</div>
+</div>
+
+<!-- 5 -->
+<div class="task">
+  <div class="th">
+    <div class="badge" style="background:var(--rose);color:var(--roseT)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v15H3z"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+    </div>
+    <div class="tt">5 · Resolve a schedule clash<small>All participants · about 10 minutes</small></div>
+  </div>
+  <p style="color:var(--muted);font-size:14.5px;margin-top:0">Two commitments overlap. Tests how they prioritise, and whether they trust a message the app wrote.</p>
+
+  <div class="mod">
+    <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+    <p>It's Tuesday morning. You've got a few interviews lined up this week. Open the app the way you normally would.</p>
+  </div>
+  <div class="say">Something's wrong on Friday. Sort it out.</div>
+  <div class="flow"><span class="step">Home alert</span><span class="arw">→</span><span class="step d">Friday 19</span><span class="arw">→</span><span class="step">Compare</span><span class="arw">→</span><span class="step">Draft</span><span class="arw">→</span><span class="step e">Requested</span></div>
+
+  <div class="scroll"><table>
+    <tr><th></th><th>Deloitte</th><th>Infosys</th></tr>
+    <tr><td>Time</td><td>11:00 – 11:45</td><td>11:30 – 13:00</td></tr>
+    <tr><td>Round</td><td><b>3 of 3 - final</b></td><td>1 of 4</td></tr>
+    <tr><td>Format</td><td>Google Meet</td><td>Proctored, on campus</td></tr>
+    <tr><td>Set by</td><td>Recruiter</td><td>Placement cell</td></tr>
+  </table></div>
+
+  <div class="crit">Criteria to measure</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 10l7-7 7 7"/></svg>Which one they move, and the reason they give</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>Is the drafted email sent as-is, edited, or distrusted?</div>
+  <div class="measure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 9h6v6H9z"/></svg>Does anyone want to keep both, or drop one? That path isn't built</div>
+  <div class="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><div>Passes if <b>10 of 12</b> pick one interview and give a reason based on the round or who set it.</div></div>
+
+  <div class="crit">Ask after the task</div>
+  <div class="q"><div class="mark">1</div><div>Why that interview and not the other one?</div></div>
+  <div class="q"><div class="mark">2</div><div>Would you send that email as written? What would you change?</div></div>
+  <div class="q"><div class="mark">3</div><div>Did you spot the clash yourself, or did the app tell you?</div></div>
+  <div class="q"><div class="mark">4</div><div>What would you have done if the app hadn't flagged it?</div></div>
+
+  <div class="look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  Watch whether the overlap is read off the calendar, or only understood once they reach the text.</div>
+</div>
+
+<h2>What to record</h2>
+<p style="color:var(--muted);margin-top:-4px">Per task, never averaged across tasks. A bad Task 3 score and a
+bad Task 1 score mean completely different things.</p>
+<div class="scroll"><table>
+  <tr><th>Metric</th><th>How</th></tr>
+  <tr><td><b>Completion</b></td><td>Unassisted, assisted, or failed. If assisted, note what you said</td></tr>
+  <tr><td><b>Time on task</b></td><td>From reading the prompt to reaching an end screen</td></tr>
+  <tr><td><b>Errors</b></td><td>Wrong taps and backtracks - note what was mistaken for what</td></tr>
+  <tr><td><b>Ease, 1–7</b></td><td>Asked straight after each task</td></tr>
+  <tr><td><b>Branch taken</b></td><td>Which option at each decision, and why</td></tr>
+  <tr><td><b>Quotes</b></td><td>Especially at consent, the return prompt, and the confidence meter</td></tr>
+</table></div>
+
+<h2>Closing script</h2>
+<div class="mod">
+  <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Read this out</div>
+  <p>That's all the tasks - thank you. Just a few last questions about the app as a whole.</p>
+</div>
+<div class="card">
+  <div class="q"><div class="mark">1</div><div>In one sentence, what is this app for?</div></div>
+  <div class="q"><div class="mark">2</div><div>What would make you stop using it in week two?</div></div>
+  <div class="q"><div class="mark">3</div><div>Which part actually worked for you? Which part felt like extra work?</div></div>
+  <div class="q"><div class="mark">4</div><div>What did the colours tell you, if anything?</div></div>
+  <div class="q"><div class="mark">5</div><div>Would you connect your real inbox? What would have to be true first?</div></div>
+</div>
+
+<h2>Weighting the findings</h2>
+<div class="grid c2">
+  <div class="card" style="background:var(--lilac);color:var(--lilacT);border-color:transparent">
+    <b>Structural - could change the IA</b>
+    <ul style="margin-bottom:0">
+      <li>Task 1 - consent refusal, passport skipping</li>
+      <li>Task 3 - the return prompt</li>
+      <li>Task 5 - whether prioritisation help is wanted</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>Surface - copy and affordance</b>
+    <ul style="margin-bottom:0">
+      <li>Task 2 - finding the widget, noticing flags</li>
+      <li>Task 4 - how the confidence note is worded</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout c-rose">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+  <div><b>What this prototype can't test</b><br>
+  No real typing - fields are pre-filled and advance on a tap. Capture, OCR and the portal are simulated.
+  Screens are static, so counts don't respond to what participants do. Colour carries meaning throughout, and
+  colour-vision deficiency isn't covered here - run that separately.</div>
+</div>
+
+<footer>Prototype: <b>Placed - User Testing Flow</b> · 42 screens · 5 flows · 11 end states</footer>
+</div>
