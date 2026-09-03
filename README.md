@@ -2,8 +2,8 @@
 
 A mobile app that tracks campus placement applications on its own.
 
-Capstone design project. Design and research only - this repo holds the
-documentation, not app code.
+Capstone design project. This repo holds the research documentation and the
+working web app built from the final designs.
 
 ---
 
@@ -84,6 +84,21 @@ information architecture. **Surface** ones are wording and layout.
 - `testing-plan.html` - the full usability test plan: participants, the script
   to read out, all five tasks with their flows, what to measure, and the
   questions to ask after each one.
+- `testing-analysis.html` - what came out of the sessions.
+- The app itself - a Next.js build of the version 2 screens, sized for
+  iPhone 16. Every screen is built from the Figma file, and all five task
+  flows are walkable end to end.
+
+## Running it
+
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000. The app opens on the splash flow; the five task
+flows start from Home, the capture widget, a job card, the calendar clash and
+`/notification` respectively.
 
 ## Design files
 
@@ -92,11 +107,13 @@ annotated flows live in Figma.
 
 ## Built with
 
-Figma - screens, components, prototype and motion.
+- Figma - screens, components, prototype and motion.
+- Next.js, TypeScript, Tailwind CSS and Motion - the web app.
 
 ## Status
 
-Design and prototype complete. User testing not yet run.
+Design and prototype complete. Round one of user testing run and analysed.
+The web app covers the version 2 screens and all five task flows.
 
 ## Author
 

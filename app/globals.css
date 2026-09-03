@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------
+   Design tokens - exported from the Figma "Placed · Colour"
+   collection and the Type/* text styles. Single source of truth:
+   change a value here and it changes everywhere in the app.
+   --------------------------------------------------------------- */
+@theme {
+  /* Brand */
+  --color-brand: #1b4fd8;
+  --color-brand-light: #e8f0ff;
+  --color-brand-raised: #406bde;
+  --color-orange: #ff7900;
+
+  /* Ink */
+  --color-navy: #11182b;
+  --color-grey: #687286;
+
+  /* Surface */
+  --color-offwhite: #f8f9fc;
+  --color-white: #ffffff;
+
+  /* Border */
+  --color-hairline: #e5e8ef;
+  --color-strong: #c7cdd9;
+  --color-blueline: #8fb2f0;
+  --color-orangeline: #ffd8ae;
+
+  /* Feedback */
+  --color-orange-tint: #fff1e3;
+  --color-orange-text: #b35400;
+  --color-success: #0e7a4e;
+  --color-success-tint: #dff3e8;
+  --color-error: #c0392b;
+  --color-error-tint: #fde7e7;
+
+  /* Chrome - Google's browser UI, deliberately not our brand */
+  --color-chrome-toolbar: #f1f3f4;
+  --color-chrome-line: #dadce0;
+  --color-chrome-text: #5f6368;
+
+  /* Third-party logos */
+  --color-linkedin: #0a66c2;
+  --color-whatsapp: #25d366;
+
+  /* Radius */
+  --radius-card: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Type scale - name · size / line-height */
+  --text-display: 27px;
+  --text-display--line-height: 32px;
+  --text-title: 20px;
+  --text-title--line-height: 26px;
+  --text-cardtitle: 15.5px;
+  --text-cardtitle--line-height: 20px;
+  --text-section: 15px;
+  --text-section--line-height: 20px;
+  --text-body: 13.5px;
+  --text-body--line-height: 19px;
+  --text-caption: 12.5px;
+  --text-caption--line-height: 17px;
+  --text-chip: 11.5px;
+  --text-chip--line-height: 15px;
+  --text-eyebrow: 10.5px;
+  --text-eyebrow--line-height: 14px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------------------------------------------------------------
+   Phone shell. The app is designed at 393×852 (iPhone 16).
+   On a phone it fills the viewport; on desktop it sits as a
+   centred column so the layouts never have to be redesigned.
+   --------------------------------------------------------------- */
+html,
+body {
+  height: 100%;
+  background: var(--color-offwhite);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: var(--color-navy);
+  overscroll-behavior-y: none;
+}
+
+/* dvh, not vh - Safari's address bar resizes the viewport and vh
+   causes the classic cut-off-bottom bug on iOS. */
+.phone-viewport {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background: var(--color-offwhite);
+}
+
+/* On a phone the frame IS the viewport. Height (not min-height) so
+   screens can size to it with h-full and scroll internally. */
+/* Explicit width, not `width:100%`. The stage wrappers are shrink-to-fit,
+   so a percentage width resolves against the frame's own content and the
+   device ends up as wide as whatever happens to be inside it. */
+.phone-frame {
+  width: min(100vw, 393px);
+  height: 100dvh;
+  position: relative;
+  background: var(--color-offwhite);
+  overflow: hidden;
+}
+
+/* On a laptop the phone is locked to iPhone 16's 393x852. The device
+   never grows with the browser window; content scrolls inside it. */
+@media (min-width: 480px) {
+  .phone-viewport {
+    background: #0d1220;
+    padding: 28px 0;
+    align-items: center;
+    overflow-y: auto;
+  }
+  .phone-frame {
+    width: 393px;
+    height: 852px;
+    flex: none;
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 10px #1c2333,
+      0 0 0 12px #2b3448,
+      0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Windows shorter than the device: scale it down rather than crop it.
+   --phone-scale is set by PhoneShell; CSS alone can't derive a unitless
+   scale factor from viewport units. */
+@media (min-width: 480px) {
+  .phone-stage {
+    transform: scale(var(--phone-scale, 1));
+    transform-origin: center center;
+  }
+}
+
+/* Safe areas - the tab bar must clear the home indicator and
+   content must clear the Dynamic Island. */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Footer inset that ADDS the safe area rather than replacing the
+   padding. Setting both `.safe-bottom` and a Tailwind pb-* on one
+   element silently drops the Tailwind value, since both write
+   padding-bottom and this file is imported after the utilities. */
+.footer-inset {
+  padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Scrollable screen body that never lets the page itself scroll */
+.screen-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.screen-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hides the bar on a horizontally scrolling strip. Separate from
+   .screen-scroll, which forces overflow-y and would fight a row. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Deeper blue used for medium-priority text on tinted grounds — it
+   clears contrast on #E8F0FF where the brand blue is borderline. */
+@theme {
+  --color-brand-deep: #1c46b6;
 }
