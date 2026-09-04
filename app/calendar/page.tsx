@@ -4,6 +4,7 @@ import Link from "next/link";
 import { StatusBar } from "@/components/ui/StatusBar";
 import { BottomNav } from "@/components/app/BottomNav";
 import { HeroCard } from "@/components/app/HeroCard";
+import { ClashBanner } from "@/components/app/ClashBanner";
 import { DateStrip } from "@/components/app/DateStrip";
 import {
   TODAY,
@@ -15,20 +16,16 @@ import {
   formatDay,
   formatTime,
   isUrgent,
-  scheduleClash,
   thisWeek,
   type Application,
   type CalEvent,
 } from "@/lib/data";
 import { useApplications } from "@/lib/useApplications";
-import { useRescheduled } from "@/lib/useReschedule";
 
 export default function CalendarPage() {
   // captured deadlines land here too, which is what the capture screen
   // promises when you save
   const { events, applications } = useApplications();
-  const requested = useRescheduled();
-  const clash = scheduleClash();
   const today = eventsOn(TODAY, events);
   const tomorrow = eventsOn(TOMORROW, events);
   const week = thisWeek(events);
@@ -61,82 +58,7 @@ export default function CalendarPage() {
           <DateStrip />
         </div>
 
-        {/* F3a - once a request is out, the clash stops being a decision
-            and becomes a thing you are waiting on */}
-        {clash && requested && (
-          <div className="mt-[16px] rounded-[18px] border border-orangeline bg-orange-tint p-[15px]">
-            <div className="flex items-center gap-[9px]">
-              <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-orange">
-                <span className="text-[12px] font-bold leading-none text-white">!</span>
-              </span>
-              <span className="text-[14.5px] font-bold text-orange-text">
-                Reschedule requested from{" "}
-                {eventCompany(
-                  [clash.a, clash.b].find((e) => e.id === requested) ?? clash.a,
-                  applications,
-                ).company}
-              </span>
-            </div>
-            <p className="mt-[7px] text-[13px] leading-[18px] text-orange-text">
-              {eventCompany(
-                [clash.a, clash.b].find((e) => e.id !== requested) ?? clash.b,
-                applications,
-              ).company}{" "}
-              stays at{" "}
-              {(() => {
-                const kept = [clash.a, clash.b].find((e) => e.id !== requested) ?? clash.b;
-                return kept.startMin != null ? formatTime(kept.startMin) : kept.time;
-              })()}
-              . We&apos;ll update the calendar when they reply.
-            </p>
-          </div>
-        )}
-
-        {/* the one thing that needs a decision */}
-        {clash && !requested && (
-          <div className="mt-[16px] rounded-[18px] border border-orangeline bg-orange-tint p-[15px]">
-            <div className="flex items-center gap-[9px]">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M12 4.5 21 20H3z"
-                  stroke="#B35400"
-                  strokeWidth="1.9"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 10v4.2"
-                  stroke="#B35400"
-                  strokeWidth="1.9"
-                  strokeLinecap="round"
-                />
-                <circle cx="12" cy="17" r="1.05" fill="#B35400" />
-              </svg>
-              <span className="text-[14.5px] font-bold text-orange-text">
-                Two things clash on {formatDay(clash.date)}
-              </span>
-            </div>
-
-            <p className="mt-[7px] text-[13px] leading-[18px] text-orange-text">
-              {eventCompany(clash.a, applications).company} interview {clash.a.time} AM overlaps{" "}
-              {eventCompany(clash.b, applications).company} assessment {clash.b.time} AM.
-            </p>
-
-            <div className="mt-[13px] flex gap-[9px]">
-              <Link
-                href={`/calendar/${clash.date}`}
-                className="flex flex-[1.7] items-center justify-center rounded-[12px] bg-navy py-[13px] text-[13.5px] font-semibold text-white"
-              >
-                Fix the clash
-              </Link>
-              <Link
-                href={`/calendar/${clash.date}/compare`}
-                className="flex flex-1 items-center justify-center rounded-[12px] border border-orangeline bg-white py-[13px] text-[13.5px] font-bold text-orange-text"
-              >
-                Compare
-              </Link>
-            </div>
-          </div>
-        )}
+        <ClashBanner />
 
         {/* today - the same hero the home screen leads with */}
         <Heading label={`Today · ${formatDay(TODAY)}`} n={today.length} />

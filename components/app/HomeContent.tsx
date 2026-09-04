@@ -5,6 +5,7 @@ import { HeroCard } from "@/components/app/HeroCard";
 import { JobCard } from "@/components/app/JobCard";
 import { PriorityLegend } from "@/components/app/Bits";
 import { CompleteProfileCard } from "@/components/app/CompleteProfileCard";
+import { ClashBanner } from "@/components/app/ClashBanner";
 import { StatTiles } from "@/components/app/StatTiles";
 import { STUDENT } from "@/lib/student";
 import { useApplications } from "@/lib/useApplications";
@@ -48,6 +49,9 @@ export function HomeContent() {
     <div className="mt-[16px]">
       <StatTiles />
     </div>
+
+    {/* F0 - the one thing that needs a decision, if there is one */}
+    <ClashBanner />
 
     <div className="mt-[14px]">
       <HeroCard />
