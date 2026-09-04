@@ -18,6 +18,15 @@ export const metadata: Metadata = {
     title: "placED",
     statusBarStyle: "default",
   },
+  // This Next.js version's `appleWebApp.capable` only emits the modern
+  // unprefixed `mobile-web-app-capable` tag - not the legacy
+  // `apple-mobile-web-app-capable` one, which iOS Safari has required
+  // for standalone (chrome-free) launch since long before the modern
+  // tag existed. Without it, "Add to Home Screen" still opens inside
+  // Safari's own toolbar instead of fullscreen. Added explicitly here.
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+  },
 };
 
 export const viewport: Viewport = {
