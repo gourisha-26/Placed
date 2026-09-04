@@ -109,9 +109,20 @@ body {
   overflow: hidden;
 }
 
+/* The mock "9:41" clock + Dynamic Island only belongs in the desktop
+   mockup - a real phone already draws its own real status bar, and
+   showing both stacked was the cause of the bottom nav getting cropped. */
+.status-bar-mock {
+  display: none;
+}
+
 /* On a laptop the phone is locked to iPhone 16's 393x852. The device
    never grows with the browser window; content scrolls inside it. */
 @media (min-width: 480px) {
+  .status-bar-mock {
+    display: flex;
+  }
+
   .phone-viewport {
     background: #0d1220;
     padding: 28px 0;
