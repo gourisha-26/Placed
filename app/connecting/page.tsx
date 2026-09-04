@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { StatusBar } from "@/components/ui/StatusBar";
 
@@ -9,8 +9,25 @@ import { StatusBar } from "@/components/ui/StatusBar";
  * Connecting → Inbox connected. Runs on a timer and then hands off
  * to the profile step, so the student never taps through a state
  * that is only telling them to wait.
+ *
+ * `?count=2` is how the "I use two emails" branch reaches this screen -
+ * without it, the copy would say "Inbox connected" no matter which
+ * option was actually picked one step earlier.
  */
 export default function ConnectingPage() {
+  return (
+    <Suspense fallback={<ConnectingScreen count={1} />}>
+      <ConnectingInner />
+    </Suspense>
+  );
+}
+
+function ConnectingInner() {
+  const count = Number(useSearchParams().get("count")) === 2 ? 2 : 1;
+  return <ConnectingScreen count={count} />;
+}
+
+function ConnectingScreen({ count }: { count: 1 | 2 }) {
   const router = useRouter();
   const [done, setDone] = useState(false);
 
@@ -71,7 +88,9 @@ export default function ConnectingPage() {
                 Connecting
               </div>
               <div className="mt-[8px] text-[13.5px] text-grey">
-                Signing you in securely
+                {count === 2
+                  ? "Signing you in to both inboxes"
+                  : "Signing you in securely"}
               </div>
             </motion.div>
           ) : (
@@ -104,7 +123,7 @@ export default function ConnectingPage() {
                 </motion.svg>
               </div>
               <div className="mt-[24px] text-[20px] font-extrabold text-navy">
-                Inbox connected
+                {count === 2 ? "Both inboxes connected" : "Inbox connected"}
               </div>
               {/* reserves the subtitle row the loading state occupies, so
                   the circle and title don't shift when the state flips */}

@@ -96,7 +96,17 @@ export default function InboxPage() {
       </div>
 
       <ScreenFooter>
-        <Button onClick={() => router.push("/connecting")}>Continue</Button>
+        <Button
+          onClick={() =>
+            // "I use two emails" isn't a dead option - it routes through
+            // a second inbox step before connecting either one
+            router.push(
+              choice === "two" ? "/inbox/second" : "/connecting?count=1",
+            )
+          }
+        >
+          Continue
+        </Button>
       </ScreenFooter>
     </div>
   );
