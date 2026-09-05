@@ -10,7 +10,8 @@ import { ClashBanner } from "@/components/app/ClashBanner";
 import { Mascot } from "@/components/app/Mascot";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { STUDENT } from "@/lib/student";
-import { POSTING, CAPTURE_SOURCE, INFERENCE } from "@/lib/capture";
+import { POSTING, CAPTURE_SOURCE } from "@/lib/capture";
+import { INFERENCE } from "@/lib/inference";
 import { suggestedMatch } from "@/lib/match";
 import { APPLICATIONS, journeySections } from "@/lib/data";
 
