@@ -96,17 +96,33 @@ body {
   background: var(--color-offwhite);
 }
 
-/* On a phone the frame IS the viewport. Height (not min-height) so
-   screens can size to it with h-full and scroll internally. */
-/* Explicit width, not `width:100%`. The stage wrappers are shrink-to-fit,
-   so a percentage width resolves against the frame's own content and the
-   device ends up as wide as whatever happens to be inside it. */
+/* On a phone the frame IS the viewport.
+   Every screen is authored on a 393px canvas with hardcoded pixel
+   positions, so letting the frame reflow narrower silently clipped the
+   art and widgets on anything under 393 (and left gutters above it).
+   Instead the canvas keeps its exact 393px width and is SCALED to the
+   real screen - the same trick the desktop mockup already uses - so the
+   layout is proportionally identical on any phone.
+   Height divides by the scale so a full-height screen still maps onto
+   exactly one viewport after scaling, and internal scrolling still
+   works. --mobile-scale is measured in PhoneShell. */
 .phone-frame {
-  width: min(100vw, 393px);
-  height: 100dvh;
+  width: 393px;
+  height: calc(100dvh / var(--mobile-scale, 1));
+  transform: scale(var(--mobile-scale, 1));
+  transform-origin: top left;
   position: relative;
   background: var(--color-offwhite);
   overflow: hidden;
+}
+
+/* the scaled canvas is still 393px wide in layout terms, so the parent
+   must not try to centre it or scroll to reach the overhang */
+@media (max-width: 479px) {
+  .phone-viewport {
+    justify-content: flex-start;
+    overflow-x: hidden;
+  }
 }
 
 /* The mock "9:41" clock + Dynamic Island only belongs in the desktop
@@ -132,6 +148,9 @@ body {
   .phone-frame {
     width: 393px;
     height: 852px;
+    /* the mobile scaling above stops at this breakpoint - tablet and
+       laptop keep the fixed 393x852 device exactly as it was */
+    transform: none;
     flex: none;
     border-radius: 44px;
     box-shadow:

@@ -13,22 +13,41 @@ const CHROME = 64; // breathing room around the device on desktop
  *
  * On a real phone (<480px) nothing is scaled: the device IS the viewport.
  */
+const DEVICE_W = 393;
+
 export function PhoneShell({ children }: { children: React.ReactNode }) {
   const [scale, setScale] = useState(1);
+  // on a phone the 393px canvas is scaled to whatever width the device
+  // actually has, so the layout is proportionally identical everywhere
+  const [mobileScale, setMobileScale] = useState(1);
   const stage = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const measure = () => {
       if (window.innerWidth < 480) {
         setScale(1);
+        setMobileScale(window.innerWidth / DEVICE_W);
         return;
       }
+      setMobileScale(1);
       const available = window.innerHeight - CHROME;
       setScale(Math.min(1, available / DEVICE_H));
     };
     measure();
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    window.addEventListener("orientationchange", measure);
+
+    // `resize` alone is not enough: iOS collapsing its address bar and
+    // Android split-screen both change the usable size without firing it
+    // reliably, which would leave the canvas scaled to the old width.
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.documentElement);
+
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("orientationchange", measure);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -38,6 +57,7 @@ export function PhoneShell({ children }: { children: React.ReactNode }) {
         style={
           {
             "--phone-scale": scale,
+            "--mobile-scale": mobileScale,
             height: scale < 1 ? DEVICE_H * scale : undefined,
           } as React.CSSProperties
         }
