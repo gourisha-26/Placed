@@ -140,6 +140,19 @@
   .note{font-size:14.5px;color:var(--grey);border-left:2px solid var(--line);
     padding-left:16px}
   footer{border-top:1px solid var(--line);padding-top:20px;color:var(--grey);font-size:13.5px}
+  /* ── V1 screen strip ───────────────────────────────── */
+  .v1cell{min-width:0}
+  .v1s{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 8px;
+    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .v1s figure{margin:0;flex:0 0 auto;scroll-snap-align:start}
+  .v1s img{display:block;width:152px;height:329px;object-fit:cover;object-position:top;
+    border-radius:13px;border:1px solid var(--line);background:var(--card)}
+  .v1s figcaption{font-size:11.5px;color:var(--grey);margin-top:7px;
+    text-align:center;max-width:152px;line-height:1.35}
+  @media (max-width:640px){
+    .v1s img{width:124px;height:268px}
+    .v1s figcaption{font-size:11px;max-width:124px}
+  }
   /* ── phone ─────────────────────────────────────────── */
   @media (max-width:640px){
     body{font-size:15.5px}
@@ -291,6 +304,16 @@
         <span class="chip">Welcome</span><span class="arw">→</span><span class="chip">Choose inbox</span><span class="arw">→</span>
         <span class="chip">Gmail consent</span><span class="arw">→</span><span class="chip">Connected</span><span class="arw">→</span>
         <span class="chip">Student Passport</span><span class="arw">→</span><span class="chip">Home</span></span></div>
+      <div class="mrow"><span class="k">V1 screens</span><span class="v1cell">
+        <div class="v1s">
+          <figure><img src="v1-screens/t1-01-onboarding.png" alt="V1 - Onboarding" loading="lazy"><figcaption>Onboarding</figcaption></figure>
+          <figure><img src="v1-screens/t1-02-which-inbox.png" alt="V1 - Which inbox" loading="lazy"><figcaption>Which inbox</figcaption></figure>
+          <figure><img src="v1-screens/t1-03-connect-gmail.png" alt="V1 - Connect Gmail" loading="lazy"><figcaption>Connect Gmail</figcaption></figure>
+          <figure><img src="v1-screens/t1-07-gmail-connected.png" alt="V1 - Gmail connected" loading="lazy"><figcaption>Gmail connected</figcaption></figure>
+          <figure><img src="v1-screens/t1-11-passport-now-later.png" alt="V1 - Passport now or later?" loading="lazy"><figcaption>Passport now or later?</figcaption></figure>
+          <figure><img src="v1-screens/t1-12-student-passport.png" alt="V1 - Student Passport" loading="lazy"><figcaption>Student Passport</figcaption></figure>
+          <figure><img src="v1-screens/t1-13-home-connected.png" alt="V1 - Home, inbox connected" loading="lazy"><figcaption>Home, inbox connected</figcaption></figure>
+        </div></span></div>
       <div class="mrow"><span class="k">Time</span><span>Use observed timings only. Completed flows varied; longer flows included extra Student Passport interaction.</span></div>
     </div>
     <div class="obs"><div class="h">What I observed</div>
@@ -318,6 +341,16 @@
         <span class="chip">Chrome</span><span class="arw">→</span><span class="chip">Search</span><span class="arw">→</span>
         <span class="chip">Job posting</span><span class="arw">→</span><span class="chip">Capture</span><span class="arw">→</span>
         <span class="chip">Review</span><span class="arw">→</span><span class="chip">Journey</span></span></div>
+      <div class="mrow"><span class="k">V1 screens</span><span class="v1cell">
+        <div class="v1s">
+          <figure><img src="v1-screens/t2-01-how-capture-works.png" alt="V1 - How capture works" loading="lazy"><figcaption>How capture works</figcaption></figure>
+          <figure><img src="v1-screens/t2-02-chrome-new-tab.png" alt="V1 - Chrome, new tab" loading="lazy"><figcaption>Chrome, new tab</figcaption></figure>
+          <figure><img src="v1-screens/t2-03-search-results.png" alt="V1 - Search results" loading="lazy"><figcaption>Search results</figcaption></figure>
+          <figure><img src="v1-screens/t2-04-job-posting.png" alt="V1 - Job posting in Chrome" loading="lazy"><figcaption>Job posting in Chrome</figcaption></figure>
+          <figure><img src="v1-screens/t2-05-processing.png" alt="V1 - Processing" loading="lazy"><figcaption>Processing</figcaption></figure>
+          <figure><img src="v1-screens/t2-06-review-capture.png" alt="V1 - Review Capture" loading="lazy"><figcaption>Review Capture</figcaption></figure>
+          <figure><img src="v1-screens/t2-07-journey-saved.png" alt="V1 - Journey, saved" loading="lazy"><figcaption>Journey, saved</figcaption></figure>
+        </div></span></div>
       <div class="mrow"><span class="k">Time</span><span>Use observed timings only. Users spent noticeable time in the capture explainer before reaching the job.</span></div>
     </div>
     <div class="obs"><div class="h">What I observed</div>
@@ -343,6 +376,15 @@
         <span class="chip">Journey</span><span class="arw">→</span><span class="chip">Job detail</span><span class="arw">→</span>
         <span class="chip">Resume choice</span><span class="arw">→</span><span class="chip">Application portal</span><span class="arw">→</span>
         <span class="chip">Applied</span></span></div>
+      <div class="mrow"><span class="k">V1 screens</span><span class="v1cell">
+        <div class="v1s">
+          <figure><img src="v1-screens/t3-01-journey-start.png" alt="V1 - Journey (start)" loading="lazy"><figcaption>Journey (start)</figcaption></figure>
+          <figure><img src="v1-screens/t3-02-job-detail.png" alt="V1 - Job Detail" loading="lazy"><figcaption>Job Detail</figcaption></figure>
+          <figure><img src="v1-screens/t3-04-choose-resume.png" alt="V1 - Choose a resume" loading="lazy"><figcaption>Choose a resume</figcaption></figure>
+          <figure><img src="v1-screens/t3-06-portal-apply.png" alt="V1 - Portal, apply form" loading="lazy"><figcaption>Portal, apply form</figcaption></figure>
+          <figure><img src="v1-screens/t3-08-did-you-apply.png" alt="V1 - Did you apply?" loading="lazy"><figcaption>Did you apply?</figcaption></figure>
+          <figure><img src="v1-screens/t3-09-journey-applied.png" alt="V1 - Journey, Applied" loading="lazy"><figcaption>Journey, Applied</figcaption></figure>
+        </div></span></div>
       <div class="mrow"><span class="k">Time</span><span>Use the recorded timing for each participant where a reliable endpoint exists.</span></div>
     </div>
     <div class="obs"><div class="h">What I observed</div>
@@ -368,6 +410,13 @@
       <div class="mrow"><span class="k">Flow</span><span class="flow">
         <span class="chip">Notification</span><span class="arw">→</span><span class="chip">Job detail</span><span class="arw">→</span>
         <span class="chip">Why this changed</span><span class="arw">→</span><span class="chip">Confirm / Reject</span></span></div>
+      <div class="mrow"><span class="k">V1 screens</span><span class="v1cell">
+        <div class="v1s">
+          <figure><img src="v1-screens/t4-01-notification.png" alt="V1 - Notification (start)" loading="lazy"><figcaption>Notification (start)</figcaption></figure>
+          <figure><img src="v1-screens/t4-02-job-detail-source.png" alt="V1 - Job Detail (source shown)" loading="lazy"><figcaption>Job Detail (source shown)</figcaption></figure>
+          <figure><img src="v1-screens/t4-03-why-this-changed.png" alt="V1 - Why this changed" loading="lazy"><figcaption>Why this changed</figcaption></figure>
+          <figure><img src="v1-screens/t4-04-confirmed.png" alt="V1 - Confirmed by student" loading="lazy"><figcaption>Confirmed by student</figcaption></figure>
+        </div></span></div>
       <div class="mrow"><span class="k">Time</span><span>Use observed timings only; do not estimate missing endpoints.</span></div>
     </div>
     <div class="obs"><div class="h">What I observed</div>
@@ -393,6 +442,14 @@
         <span class="chip">Home alert</span><span class="arw">→</span><span class="chip">Calendar</span><span class="arw">→</span>
         <span class="chip">Choose which moves</span><span class="arw">→</span><span class="chip">Draft request</span><span class="arw">→</span>
         <span class="chip">Send</span></span></div>
+      <div class="mrow"><span class="k">V1 screens</span><span class="v1cell">
+        <div class="v1s">
+          <figure><img src="v1-screens/t5-01-home-conflict.png" alt="V1 - Home (conflict alert)" loading="lazy"><figcaption>Home (conflict alert)</figcaption></figure>
+          <figure><img src="v1-screens/t5-02-friday-clash.png" alt="V1 - Friday 19, the clash" loading="lazy"><figcaption>Friday 19, the clash</figcaption></figure>
+          <figure><img src="v1-screens/t5-03-which-one-moves.png" alt="V1 - Which one moves?" loading="lazy"><figcaption>Which one moves?</figcaption></figure>
+          <figure><img src="v1-screens/t5-04-draft-deloitte.png" alt="V1 - Draft, move Deloitte" loading="lazy"><figcaption>Draft, move Deloitte</figcaption></figure>
+          <figure><img src="v1-screens/t5-06-requested-deloitte.png" alt="V1 - Reschedule requested, Deloitte" loading="lazy"><figcaption>Reschedule requested, Deloitte</figcaption></figure>
+        </div></span></div>
       <div class="mrow"><span class="k">Time</span><span>Use observed timings only. Do not estimate missing endpoints.</span></div>
     </div>
     <div class="obs"><div class="h">What I observed</div>
