@@ -1,0 +1,471 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>placED Initial Research</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#FCFCFD; --card:#FFFFFF; --ink:#12182A; --grey:#6B7488; --line:#E6E9F0;
+    --blue:#1B6DF0; --blue-soft:#EDF3FE; --warm:#C25A00; --warm-soft:#FFF3E6;
+    --good:#0E7A4E; --good-soft:#E6F5EE; --hi:#B3261E; --hi-soft:#FDECEA;
+    --chip-bg:#1B6DF0; --chip-fg:#FFFFFF; --blue-hover:#DCE8FD;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0D111C; --card:#151B29; --ink:#EEF1F7; --grey:#98A1B3; --line:#242C3D;
+      --blue:#6FA5FF; --blue-soft:#16233C; --warm:#FFA351; --warm-soft:#2C1F13;
+      --good:#5FD3A0; --good-soft:#132A21; --hi:#FF8A80; --hi-soft:#2E1715;
+      --chip-bg:#6FA5FF; --chip-fg:#0D111C; --blue-hover:#1E2E4C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0D111C; --card:#151B29; --ink:#EEF1F7; --grey:#98A1B3; --line:#242C3D;
+    --blue:#6FA5FF; --blue-soft:#16233C; --warm:#FFA351; --warm-soft:#2C1F13;
+    --good:#5FD3A0; --good-soft:#132A21; --hi:#FF8A80; --hi-soft:#2E1715;
+    --chip-bg:#6FA5FF; --chip-fg:#0D111C; --blue-hover:#1E2E4C;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:60px 24px 100px;
+    display:flex;flex-direction:column;gap:46px}
+  h1{font-weight:800;font-size:clamp(36px,6vw,50px);line-height:1.02;margin:0;
+    letter-spacing:-1.2px}
+  h2{font-weight:700;font-size:22px;line-height:1.25;margin:0;letter-spacing:-.3px}
+  h3{font-size:17px;font-weight:700;margin:0}
+  p{margin:0 0 12px}
+  p:last-child{margin-bottom:0}
+  .kicker{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:1.6px;
+    text-transform:uppercase;color:var(--grey);margin:14px 0 0}
+  .sub{font-size:20px;font-weight:600;color:var(--blue);margin:8px 0 0}
+  section{display:flex;flex-direction:column}
+  .sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .sh .tile{width:34px;height:34px;border-radius:10px;background:var(--blue-soft);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .sh .tile svg{width:18px;height:18px;stroke:var(--blue);fill:none;
+    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .stats{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);margin-top:24px}
+  @media(min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}}
+  .st{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .st b{display:block;font-size:26px;font-weight:800;letter-spacing:-.8px;line-height:1}
+  .st span{font-size:12.5px;color:var(--grey);display:block;margin-top:5px}
+  .who{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    display:flex;flex-direction:column}
+  .who .r{display:flex;gap:14px;padding:17px 19px;align-items:flex-start}
+  .who .r + .r{border-top:1px solid var(--line)}
+  .who .ic{width:36px;height:36px;border-radius:10px;flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;background:var(--blue-soft)}
+  .who .ic svg{width:19px;height:19px;stroke:var(--blue);fill:none;
+    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .who h4{margin:0 0 3px;font-size:15.5px;font-weight:700}
+  .who p{margin:0;font-size:14.5px;color:var(--grey)}
+  .tico{width:32px;height:32px;border-radius:9px;background:var(--blue-soft);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .tico svg{width:17px;height:17px;stroke:var(--blue);fill:none;
+    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .thead{display:flex;align-items:center;gap:12px}
+  a{color:var(--blue)}
+  .o .l{display:flex;align-items:center;gap:6px}
+  .o .l svg{width:13px;height:13px;fill:none;stroke:currentColor;
+    stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+
+  .anchors{position:sticky;top:0;z-index:20;background:var(--paper);
+    padding:14px 0 12px;margin:0 0 -14px;border-bottom:1px solid var(--line)}
+  .abar{display:flex;gap:8px;overflow-x:auto;padding:2px;scrollbar-width:none}
+  .abar::-webkit-scrollbar{display:none}
+  .abar a{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;
+    padding:11px 16px;border-radius:11px;text-decoration:none;
+    background:var(--blue-soft);color:var(--blue);font-size:14px;font-weight:600;
+    white-space:nowrap;transition:background .18s ease,color .18s ease}
+  .abar a svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;
+    stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  .abar a:hover{background:var(--blue-hover)}
+  .abar a.on{background:var(--chip-bg);color:var(--chip-fg)}
+  .abar a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){.abar a{transition:none}}
+
+  .ttabs{display:flex;gap:5px;overflow-x:auto;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:6px;margin-bottom:16px;
+    scrollbar-width:none}
+  .ttabs::-webkit-scrollbar{display:none}
+  .ttab{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:10px 14px;border-radius:10px;border:0;background:transparent;cursor:pointer;
+    font-family:inherit;font-size:12.5px;font-weight:600;color:var(--grey)}
+  .ttab svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round}
+  .ttab:hover{color:var(--ink)}
+  .ttab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .ttab.on{background:var(--blue-soft);color:var(--blue)}
+  ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  ul li{padding-left:20px;position:relative;color:var(--ink)}
+  ul li::before{content:"";position:absolute;left:4px;top:11px;width:5px;height:5px;
+    border-radius:50%;background:var(--blue)}
+
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:1px;
+    text-transform:uppercase;color:var(--grey);font-weight:500}
+  tr:last-child td{border-bottom:none}
+  td:first-child{font-weight:600;width:38%}
+
+  .task{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;display:none;flex-direction:column;gap:16px}
+  .task.show{display:flex}
+  .tnum{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:1.4px;
+    text-transform:uppercase;color:var(--blue)}
+  .quote{background:var(--blue-soft);border-radius:10px;padding:13px 16px;
+    font-size:16px;color:var(--ink)}
+  .meta{display:flex;flex-direction:column;gap:10px}
+  .mrow{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:baseline;
+    font-size:14.5px}
+  @media(max-width:560px){.mrow{grid-template-columns:1fr;gap:3px}}
+  .mrow .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.9px;
+    text-transform:uppercase;color:var(--grey)}
+  .flow{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .chip{background:var(--blue-soft);color:var(--blue);border-radius:6px;
+    padding:4px 9px;font-size:12.5px;font-weight:600;white-space:nowrap}
+  .arw{color:var(--grey);font-size:11px}
+  .obs .h{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.9px;
+    text-transform:uppercase;color:var(--grey);margin-bottom:9px}
+  .out{display:flex;flex-direction:column;gap:10px}
+  .o{border-radius:10px;padding:13px 16px;font-size:14.5px;display:flex;
+    flex-direction:column;gap:3px}
+  .o .l{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:1px;
+    text-transform:uppercase;opacity:.85}
+  .o.fr{background:var(--warm-soft);color:var(--warm)}
+  .o.ki{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+  .o.dc{background:var(--good-soft);color:var(--good)}
+  .o strong{font-weight:600}
+
+  .note{font-size:14.5px;color:var(--grey);border-left:2px solid var(--line);
+    padding-left:16px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--grey);font-size:13.5px}
+  /* ── V1 screen strip ───────────────────────────────── */
+  .v1cell{min-width:0}
+  .v1s{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 8px;
+    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .v1s figure{margin:0;flex:0 0 auto;scroll-snap-align:start}
+  .v1s img{display:block;width:152px;height:329px;object-fit:cover;object-position:top;
+    border-radius:13px;border:1px solid var(--line);background:var(--card)}
+  .v1s figcaption{font-size:11.5px;color:var(--grey);margin-top:7px;
+    text-align:center;max-width:152px;line-height:1.35}
+  @media (max-width:640px){
+    .v1s img{width:124px;height:268px}
+    .v1s figcaption{font-size:11px;max-width:124px}
+  }
+  /* ── phone ─────────────────────────────────────────── */
+  @media (max-width:640px){
+    body{font-size:15.5px}
+    .wrap{padding:34px 18px 72px;gap:34px}
+    h1{font-size:33px;letter-spacing:-.9px}
+    h2{font-size:19px}
+    h3{font-size:16px}
+    .sub{font-size:17px}
+    .kicker{font-size:10.5px;letter-spacing:1.3px}
+
+    .stats{gap:8px;margin-top:20px}
+    .st{padding:12px 13px}
+    .st b{font-size:22px}
+    .st span{font-size:11.5px}
+
+    /* let both tab rows scroll edge to edge */
+    .anchors{padding:10px 0}
+    .abar{margin:0 -18px;padding:2px 18px}
+    .abar a{padding:11px 15px;gap:7px;font-size:13.5px;border-radius:10px}
+    .abar a svg{width:17px;height:17px}
+
+    .ttabs{margin:0 -18px 14px;padding:6px 18px;border-radius:0;
+      border-left:0;border-right:0}
+    .ttab{padding:10px 12px;font-size:11.5px;gap:4px;min-height:56px;justify-content:center}
+    .ttab svg{width:17px;height:17px}
+
+    .sh{gap:10px;margin-bottom:13px}
+    .sh .tile{width:30px;height:30px}
+    .sh .tile svg{width:16px;height:16px}
+
+    .task{padding:18px 16px;border-radius:14px;gap:14px}
+    .thead{gap:10px}
+    .tico{width:29px;height:29px}
+    .quote{padding:12px 14px;font-size:15px}
+    .mrow{grid-template-columns:1fr;gap:3px}
+    .o{padding:12px 14px;font-size:14px}
+
+    .who .r{padding:14px 15px;gap:12px}
+    .who .ic{width:32px;height:32px}
+    .who h4{font-size:15px}
+    .who p{font-size:14px}
+
+    table{min-width:470px;font-size:13.5px}
+    th,td{padding:9px 10px}
+    td:first-child{width:40%}
+    .scroll{margin-right:-18px;padding-right:18px}
+
+    ul li{padding-left:18px}
+    footer{font-size:12.5px}
+  }
+  @media (max-width:380px){
+    .wrap{padding:28px 14px 64px}
+    h1{font-size:29px}
+    .abar{margin:0 -14px;padding:2px 14px}
+    .ttabs{margin:0 -14px 12px;padding:6px 14px}
+    .scroll{margin-right:-14px;padding-right:14px}
+    .stats{grid-template-columns:1fr 1fr}
+  }
+  .todo{border:1.5px dashed var(--warm);background:var(--warm-soft);color:var(--warm);
+    border-radius:10px;padding:12px 15px;font-size:14px}
+  .todo b{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:1px;
+    text-transform:uppercase;display:block;margin-bottom:2px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <h1>placED.</h1>
+  <p class="sub">Initial Research</p>
+  <p class="kicker">Desk research • Student interviews • Placement cell conversations • Insights</p>
+  <div class="stats">
+    <div class="st"><b>—</b><span>students interviewed</span></div>
+    <div class="st"><b>—</b><span>placement cell / faculty</span></div>
+    <div class="st"><b>5</b><span>research themes</span></div>
+    <div class="st"><b>—</b><span>key insights</span></div>
+  </div>
+</header>
+
+<nav class="anchors" aria-label="Sections">
+  <div class="abar">
+    <a href="#overview"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg>Overview</a>
+    <a href="#problem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>The problem</a>
+    <a href="#learn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg>Research goals</a>
+    <a href="#groups"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg>Who I spoke to</a>
+    <a href="#questions"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg>Interview questions</a>
+    <a href="#themes"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>What I heard</a>
+    <a href="#insights"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Key insights</a>
+    <a href="#design"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg>Into design</a>
+  </div>
+</nav>
+
+<section id="overview">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg></span><h2>Overview</h2></div>
+  <p>Before designing anything, I wanted to understand how final-year students actually keep track of campus placements, where information comes from, and where things fall through the cracks.</p>
+  <div class="scroll" style="margin-top:16px">
+    <table>
+      <tr><th>Area</th><th>Details</th></tr>
+      <tr><td>Research methods</td><td>Desk research, semi-structured interviews</td></tr>
+      <tr><td>Students interviewed</td><td>— <span class="note">(add number)</span></td></tr>
+      <tr><td>Placement cell / faculty</td><td>— <span class="note">(add number)</span></td></tr>
+      <tr><td>Session length</td><td>— <span class="note">(e.g. 20–30 minutes)</span></td></tr>
+      <tr><td>What I looked for</td><td>Where placement information arrives, how it is tracked, what gets missed, and how students feel about it</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span><h2>The problem I started with</h2></div>
+  <div class="quote">Students don’t struggle to apply for jobs. They struggle to keep track of them.</div>
+  <p style="margin-top:14px">Placement information is spread across the college portal, WhatsApp groups, Gmail and company websites. The student holds it all together: re-typing the same details, losing track of which resume went where, and missing updates that arrive in the wrong place at the wrong time.</p>
+  <div class="o ki" style="margin-top:6px"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Assumption to test</span><span>Most tracking apps ask the student to maintain a list. That only works with the discipline to keep it updated during the busiest month of the year.</span></div>
+</section>
+
+<section id="learn">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></span><h2>What I wanted to learn</h2></div>
+  <ul>
+    <li>Where does placement information reach students, and which channel do they trust most?</li>
+    <li>How do students track applications today, and do they keep it up?</li>
+    <li>How many resume versions do they manage, and do they remember which went where?</li>
+    <li>What have they missed: deadlines, replies, interview clashes?</li>
+    <li>How comfortable are they giving an app access to their email?</li>
+  </ul>
+</section>
+
+<section id="groups">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span><h2>Who I spoke to</h2></div>
+  <div class="who">
+    <div class="r">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="m12 4 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+      <div><h4>Final-year students</h4>
+      <p>Students applying through campus placements now, or about to. They described their day-to-day process and what goes wrong.</p></div>
+    </div>
+    <div class="r">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span>
+      <div><h4>Placement cell and faculty</h4>
+      <p>They run the drives. They explained how information is sent out and where students most often drop the ball.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg></span><h2>Interview questions I asked</h2></div>
+  <ul>
+    <li>Walk me through the last job you applied for. Where did you first hear about it?</li>
+    <li>How do you keep track of everything you’ve applied to?</li>
+    <li>Have you ever missed a deadline, update or interview? What happened?</li>
+    <li>How many versions of your resume do you have? How do you pick one?</li>
+    <li>Would you let an app read your placement email? What would make you say no?</li>
+  </ul>
+  <div class="todo" style="margin-top:16px"><b>To fill in</b>Replace with the exact questions from your interview guide.</div>
+</section>
+
+<section id="themes">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><h2>What I heard</h2></div>
+
+  <div class="ttabs" role="tablist"><button class="ttab on" data-t="t1" role="tab" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>Scattered info</button><button class="ttab" data-t="t2" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Tracking</button><button class="ttab" data-t="t3" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg>Resumes</button><button class="ttab" data-t="t4" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Missed updates</button><button class="ttab" data-t="t5" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Trust &amp; privacy</button></div>
+  <div class="task show" id="t1">
+    <div><p class="tnum">Theme 1</p><h3>Information is scattered</h3></div>
+    <div class="meta">
+      <div class="mrow"><span class="k">Question</span><span>Where does placement information actually reach students?</span></div>
+      <div class="mrow"><span class="k">Focus</span><span>College portal, WhatsApp groups, Gmail and company websites</span></div>
+    </div>
+    <div class="quote">“Add a direct quote from an interview.”</div>
+    <div class="obs"><div class="h">What I heard</div>
+      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
+    </div>
+    <div class="out">
+      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
+      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
+      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
+    </div>
+  </div>
+
+  <div class="task" id="t2">
+    <div><p class="tnum">Theme 2</p><h3>Tracking falls apart</h3></div>
+    <div class="meta">
+      <div class="mrow"><span class="k">Question</span><span>How do students keep track of applications today?</span></div>
+      <div class="mrow"><span class="k">Focus</span><span>Spreadsheets, notes apps, memory, screenshots</span></div>
+    </div>
+    <div class="quote">“Add a direct quote from an interview.”</div>
+    <div class="obs"><div class="h">What I heard</div>
+      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
+    </div>
+    <div class="out">
+      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
+      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
+      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
+    </div>
+  </div>
+
+  <div class="task" id="t3">
+    <div><p class="tnum">Theme 3</p><h3>Too many resume versions</h3></div>
+    <div class="meta">
+      <div class="mrow"><span class="k">Question</span><span>How do students choose and remember which resume they sent?</span></div>
+      <div class="mrow"><span class="k">Focus</span><span>Resume versions and where each was sent</span></div>
+    </div>
+    <div class="quote">“Add a direct quote from an interview.”</div>
+    <div class="obs"><div class="h">What I heard</div>
+      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
+    </div>
+    <div class="out">
+      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
+      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
+      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
+    </div>
+  </div>
+
+  <div class="task" id="t4">
+    <div><p class="tnum">Theme 4</p><h3>Updates arrive in the wrong place</h3></div>
+    <div class="meta">
+      <div class="mrow"><span class="k">Question</span><span>What do students miss, and why?</span></div>
+      <div class="mrow"><span class="k">Focus</span><span>Deadlines, company replies, interview clashes</span></div>
+    </div>
+    <div class="quote">“Add a direct quote from an interview.”</div>
+    <div class="obs"><div class="h">What I heard</div>
+      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
+    </div>
+    <div class="out">
+      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
+      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
+      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
+    </div>
+  </div>
+
+  <div class="task" id="t5">
+    <div><p class="tnum">Theme 5</p><h3>Trust and email access</h3></div>
+    <div class="meta">
+      <div class="mrow"><span class="k">Question</span><span>Would students let an app read their placement email?</span></div>
+      <div class="mrow"><span class="k">Focus</span><span>Privacy concerns and what would make it acceptable</span></div>
+    </div>
+    <div class="quote">“Add a direct quote from an interview.”</div>
+    <div class="obs"><div class="h">What I heard</div>
+      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
+    </div>
+    <div class="out">
+      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
+      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
+      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
+    </div>
+  </div>
+
+</section>
+
+<section id="insights">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Key insights</h2></div>
+  <p>Across the interviews, the themes pointed to a few larger patterns.</p>
+  <div class="scroll" style="margin-top:16px">
+    <table>
+      <tr><th>Insight</th><th>Evidence</th><th>What it means for placED.</th></tr>
+      <tr><td>The student is the system</td><td>—</td><td>The record should build itself, not rely on manual upkeep.</td></tr>
+      <tr><td>Manual tracking doesn’t survive placement season</td><td>—</td><td>Capture jobs from wherever they’re seen, in one tap.</td></tr>
+      <tr><td>Email is where the truth arrives</td><td>—</td><td>Read placement mail and update the status when a company replies.</td></tr>
+      <tr><td>Resume choice is guesswork</td><td>—</td><td>Suggest a resume and remember where each version went.</td></tr>
+    </table>
+  </div>
+  <div class="todo" style="margin-top:14px"><b>To fill in</b>Add the evidence column from your interviews, and edit the insights to match what you actually found.</div>
+</section>
+
+<section id="design">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg></span><h2>From research to design</h2></div>
+  <p>The research shaped the three ideas behind placED.:</p>
+  <div class="out">
+    <div class="o ki"><span class="l">1 · Capture</span><span>See a job posting anywhere, tap the floating widget, and the app reads the details off the screen.</span></div>
+    <div class="o ki"><span class="l">2 · Track</span><span>Connect the email you use to apply. The app reads placement mail and updates the status when a company replies.</span></div>
+    <div class="o ki"><span class="l">3 · Decide</span><span>The app suggests which resume to send, flags interview clashes, and shows what needs attention today.</span></div>
+  </div>
+  <div class="quote" style="margin-top:16px">The student confirms things. They don’t maintain things.</div>
+  <p class="note" style="margin-top:16px">These ideas were then tested in five task flows. See <a href="testing-plan.html">the test plan</a> and <a href="testing-analysis.html">the usability testing analysis</a>.</p>
+</section>
+
+<footer>
+  <p>placED. · Initial Research · Desk research • Interviews • Insights</p>
+</footer>
+
+</div>
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.abar a'));
+    var map = {};
+    links.forEach(function(a){
+      var id = a.getAttribute('href').slice(1);
+      var sec = document.getElementById(id);
+      if (sec) map[id] = a;
+      a.addEventListener('click', function(){ setActive(a); });
+    });
+    function setActive(a){
+      links.forEach(function(x){ x.classList.remove('on'); x.removeAttribute('aria-current'); });
+      if (a){ a.classList.add('on'); a.setAttribute('aria-current','true'); }
+    }
+    setActive(links[0]);
+    if ('IntersectionObserver' in window){
+      var seen = {};
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ seen[e.target.id] = e.isIntersecting; });
+        for (var i = links.length - 1; i >= 0; i--){
+          var id = links[i].getAttribute('href').slice(1);
+          if (seen[id]){ setActive(links[i]); return; }
+        }
+      }, { rootMargin: '-96px 0px -55% 0px', threshold: 0 });
+      Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+    }
+  })();
+
+  document.querySelectorAll('.ttab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.ttab').forEach(function(b){
+        b.classList.remove('on'); b.setAttribute('aria-selected','false');
+      });
+      document.querySelectorAll('.task').forEach(function(t){ t.classList.remove('show'); });
+      btn.classList.add('on'); btn.setAttribute('aria-selected','true');
+      var panel = document.getElementById(btn.dataset.t);
+      if (panel) panel.classList.add('show');
+    });
+  });
+</script>
