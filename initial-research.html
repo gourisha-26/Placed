@@ -247,6 +247,7 @@
   .lane .step.dec{border-style:dashed;background:var(--warm-soft);border-color:var(--warm)}
   .lane svg.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
   .lane svg.arrows path{fill:none;stroke:var(--blue);stroke-width:1.6}
+  .lane svg.arrows line.div{stroke:var(--grey);stroke-width:1.2;stroke-dasharray:3 5;opacity:.6}
   .lane svg.arrows .ah{fill:var(--blue);stroke:none}
   ol.q{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
 </style>
@@ -499,6 +500,10 @@
     var h=document.createElementNS(NS,'polygon');h.setAttribute('class','ah');h.setAttribute('points',p.join(' '));svg.appendChild(h);}
   function draw(){
     svg.innerHTML='';
+    var o=lane.getBoundingClientRect(),hs=lane.querySelectorAll('.lh');
+    for(var i=0;i<hs.length-1;i++){var a=hs[i].getBoundingClientRect(),b=hs[i+1].getBoundingClientRect(),x=(a.right+b.left)/2-o.left;
+      var ln=document.createElementNS(NS,'line');ln.setAttribute('class','div');ln.setAttribute('x1',x);ln.setAttribute('x2',x);
+      ln.setAttribute('y1',12);ln.setAttribute('y2',o.height-12);svg.appendChild(ln);}
     E.forEach(function(e){
       var a=box(e[0]),b=box(e[1]),d,path=document.createElementNS(NS,'path');
       var sameRow=e[0].split('-')[0]==e[1].split('-')[0], sameCol=e[0].split('-')[1]==e[1].split('-')[1];
