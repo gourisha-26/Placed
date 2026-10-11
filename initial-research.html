@@ -223,6 +223,17 @@
   .tile2.blue{background:var(--blue-soft);border-color:transparent}.tile2.blue .big{color:var(--blue)}
   .tile2.warm{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
   .tile2.good{background:var(--good-soft);border-color:transparent;color:var(--good)}
+  .tgl{position:relative;text-align:left;font:inherit;cursor:pointer;padding-right:56px}
+  .tgl:hover{border-color:var(--blue)}
+  .tgl:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .plus{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--blue-soft);transition:transform .2s ease}
+  .plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:2px;margin:-1px 0 0 -6.5px;
+    background:var(--blue);border-radius:2px}
+  .plus::after{transform:rotate(90deg);transition:transform .2s ease}
+  .tgl[aria-expanded="true"]{border-color:var(--blue)}
+  .tgl[aria-expanded="true"] .plus::after{transform:rotate(0)}
+  @media (prefers-reduced-motion:reduce){.plus,.plus::after{transition:none}}
   .emo{font-size:26px;line-height:1}
   .hero-q{font-size:clamp(20px,3.4vw,27px);font-weight:800;letter-spacing:-.5px;line-height:1.25;
     border-left:5px solid var(--blue);padding:4px 0 4px 18px;margin:4px 0 16px}
@@ -421,13 +432,13 @@
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Thematic analysis</h2></div>
   <div class="hero-q">Students don’t struggle to apply. They struggle to manage the placement journey.</div>
   <div class="cols">
-    <div class="tile2" style="border-top:5px solid #F5D25A"><b>Student side</b><span>Problems a student-facing app can solve directly</span></div>
-    <div class="tile2" style="border-top:5px solid #F5A623"><b>Placement cell / company side</b><span>Problems outside the student’s control</span></div>
+    <button class="tile2 tgl" style="border-top:5px solid #F5D25A" aria-expanded="false" aria-controls="g-student"><span class="plus" aria-hidden="true"></span><b>Student side · 6</b><span>Problems a student-facing app can solve directly</span></button>
+    <button class="tile2 tgl" style="border-top:5px solid #F5A623" aria-expanded="false" aria-controls="g-system"><span class="plus" aria-hidden="true"></span><b>Placement cell / company side · 4</b><span>Problems outside the student’s control</span></button>
   </div>
-  <h3 style="margin:22px 0 10px">Student side</h3>
-  <div class="stick"><div class="sn"><h4>Scattered information</h4><div class="ideas"><span class="idea">Browser extension</span><span class="idea">AI info aggregator</span></div></div><div class="sn"><h4>WhatsApp is useful but chaotic</h4><div class="ideas"><span class="idea">Broadcast message</span><span class="idea">AI importance scan</span><span class="idea">AI chat summary</span><span class="idea">Auto labelling</span></div></div><div class="sn"><h4>Communication gap</h4><div class="ideas"><span class="idea">AI smart chatbot → escalate to placement cell</span></div></div><div class="sn"><h4>Repeated manual work like profile creation and personal info</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span></div></div><div class="sn"><h4>Resume versions</h4><div class="ideas"><span class="idea">GitHub for resumes</span><span class="idea">Resume recommendation AI</span><span class="idea">Resume analytics: success rate of each version</span><span class="idea">ATS score before submission</span><span class="idea">AI resume memory</span></div></div><div class="sn"><h4>Deadline management</h4><div class="ideas"><span class="idea">Deadline heatmap</span><span class="idea">Lock-screen widget</span></div></div></div>
-  <h3 style="margin:22px 0 10px">Placement cell / company side</h3>
-  <div class="stick"><div class="sn core"><h4>Process is different everywhere</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span><span class="idea">Resume parser</span><span class="idea">Smart document vault</span></div></div><div class="sn core"><h4>No status transparency after applying</h4><div class="ideas"></div></div><div class="sn core"><h4>Heavy dependence on placement coordinators</h4><div class="ideas"></div></div><div class="sn core"><h4>Missed opportunities due to not receiving updates</h4><div class="ideas"></div></div></div>
+  <div class="grp" id="g-student" hidden><h3 style="margin:22px 0 10px">Student side</h3>
+  <div class="stick"><div class="sn"><h4>Scattered information</h4><div class="ideas"><span class="idea">Browser extension</span><span class="idea">AI info aggregator</span></div></div><div class="sn"><h4>WhatsApp is useful but chaotic</h4><div class="ideas"><span class="idea">Broadcast message</span><span class="idea">AI importance scan</span><span class="idea">AI chat summary</span><span class="idea">Auto labelling</span></div></div><div class="sn"><h4>Communication gap</h4><div class="ideas"><span class="idea">AI smart chatbot → escalate to placement cell</span></div></div><div class="sn"><h4>Repeated manual work like profile creation and personal info</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span></div></div><div class="sn"><h4>Resume versions</h4><div class="ideas"><span class="idea">GitHub for resumes</span><span class="idea">Resume recommendation AI</span><span class="idea">Resume analytics: success rate of each version</span><span class="idea">ATS score before submission</span><span class="idea">AI resume memory</span></div></div><div class="sn"><h4>Deadline management</h4><div class="ideas"><span class="idea">Deadline heatmap</span><span class="idea">Lock-screen widget</span></div></div></div></div>
+  <div class="grp" id="g-system" hidden><h3 style="margin:22px 0 10px">Placement cell / company side</h3>
+  <div class="stick"><div class="sn core"><h4>Process is different everywhere</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span><span class="idea">Resume parser</span><span class="idea">Smart document vault</span></div></div><div class="sn core"><h4>No status transparency after applying</h4><div class="ideas"></div></div><div class="sn core"><h4>Heavy dependence on placement coordinators</h4><div class="ideas"></div></div><div class="sn core"><h4>Missed opportunities due to not receiving updates</h4><div class="ideas"></div></div></div></div>
   <div class="o ki" style="margin-top:14px"><span class="l">Why this matters</span><span>placED. can’t change how placement cells or companies work, so it reads the student’s inbox to get the status and updates itself.</span></div>
 </section>
 
@@ -518,6 +529,9 @@
 </script>
 
 <script>
+document.querySelectorAll('.tgl').forEach(function(b){b.addEventListener('click',function(){
+  var g=document.getElementById(b.getAttribute('aria-controls')),open=b.getAttribute('aria-expanded')!=='true';
+  b.setAttribute('aria-expanded',open);g.hidden=!open;});});
 (function(){
   var E=[["0-0","1-1"],["1-1","2-0"],["2-0","2-2"],["2-2","3-2"],["3-2","4-0"],["4-0","5-1"],["5-1","6-0"],["6-0","7-1"],["7-1","7-2"],["7-1","8-1"],["8-1","8-2"],["8-1","9-1"],["9-1","10-0"],["10-0","10-2"]];
   var lane=document.querySelector('.lane'); if(!lane) return;
