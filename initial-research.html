@@ -223,6 +223,17 @@
   .tile2.blue{background:var(--blue-soft);border-color:transparent}.tile2.blue .big{color:var(--blue)}
   .tile2.warm{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
   .tile2.good{background:var(--good-soft);border-color:transparent;color:var(--good)}
+  .stick .sn,.sty{background:#FFE98A;border:0;border-radius:2px 2px 14px 2px;color:#3A3000;
+    box-shadow:0 1px 1px rgba(0,0,0,.08),0 8px 14px -6px rgba(0,0,0,.25);transform:rotate(-.8deg)}
+  .sn:nth-child(even){transform:rotate(.9deg)}
+  .stick .sn.core,.sty.o{background:#FFB547;color:#3D2200}
+  .sty.o{transform:rotate(.8deg)}
+  .sn h4,.sty b{color:inherit}
+  .sty span:not(.plus){color:inherit;opacity:.75}
+  .sn .idea{background:rgba(255,255,255,.6);color:#1E4D2B}
+  .stick{gap:16px;padding:6px}
+  .tgl.sty:hover,.tgl.sty[aria-expanded="true"]{border:0;transform:rotate(0) scale(1.01)}
+  .sty .plus{background:rgba(255,255,255,.7)}
   .tgl{position:relative;text-align:left;font:inherit;cursor:pointer;padding-right:56px}
   .tgl:hover{border-color:var(--blue)}
   .tgl:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
@@ -432,8 +443,8 @@
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Thematic analysis</h2></div>
   <div class="hero-q">Students don’t struggle to apply. They struggle to manage the placement journey.</div>
   <div class="cols">
-    <button class="tile2 tgl" style="border-top:5px solid #F5D25A" aria-expanded="false" aria-controls="g-student"><span class="plus" aria-hidden="true"></span><b>Student side · 6</b><span>Problems a student-facing app can solve directly</span></button>
-    <button class="tile2 tgl" style="border-top:5px solid #F5A623" aria-expanded="false" aria-controls="g-system"><span class="plus" aria-hidden="true"></span><b>Placement cell / company side · 4</b><span>Problems outside the student’s control</span></button>
+    <button class="tile2 tgl sty y" aria-expanded="false" aria-controls="g-student"><span class="plus" aria-hidden="true"></span><b>Student side · 6</b><span>Problems a student-facing app can solve directly</span></button>
+    <button class="tile2 tgl sty o" aria-expanded="false" aria-controls="g-system"><span class="plus" aria-hidden="true"></span><b>Placement cell / company side · 4</b><span>Problems outside the student’s control</span></button>
   </div>
   <div class="grp" id="g-student" hidden><h3 style="margin:22px 0 10px">Student side</h3>
   <div class="stick"><div class="sn"><h4>Scattered information</h4><div class="ideas"><span class="idea">Browser extension</span><span class="idea">AI info aggregator</span></div></div><div class="sn"><h4>WhatsApp is useful but chaotic</h4><div class="ideas"><span class="idea">Broadcast message</span><span class="idea">AI importance scan</span><span class="idea">AI chat summary</span><span class="idea">Auto labelling</span></div></div><div class="sn"><h4>Communication gap</h4><div class="ideas"><span class="idea">AI smart chatbot → escalate to placement cell</span></div></div><div class="sn"><h4>Repeated manual work like profile creation and personal info</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span></div></div><div class="sn"><h4>Resume versions</h4><div class="ideas"><span class="idea">GitHub for resumes</span><span class="idea">Resume recommendation AI</span><span class="idea">Resume analytics: success rate of each version</span><span class="idea">ATS score before submission</span><span class="idea">AI resume memory</span></div></div><div class="sn"><h4>Deadline management</h4><div class="ideas"><span class="idea">Deadline heatmap</span><span class="idea">Lock-screen widget</span></div></div></div></div>
