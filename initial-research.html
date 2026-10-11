@@ -216,6 +216,34 @@
     border-radius:10px;padding:12px 15px;font-size:14px}
   .todo b{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:1px;
     text-transform:uppercase;display:block;margin-bottom:2px}
+  .cols{display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:620px){.cols{grid-template-columns:1fr 1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;
+    display:flex;flex-direction:column;gap:10px}
+  .card h4{margin:0;font-size:15.5px;font-weight:700}
+  .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--grey)}
+  .pains{display:flex;flex-direction:column;gap:6px}
+  .pain{background:var(--hi-soft);color:var(--hi);border-radius:8px;padding:7px 11px;font-size:13.5px}
+  .idea{background:var(--good-soft);color:var(--good);border-radius:8px;padding:7px 11px;font-size:13.5px}
+  .thought{background:var(--warm-soft);color:var(--warm);border-radius:8px;padding:7px 11px;font-size:13.5px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .legend span{font-size:12.5px;font-weight:600}
+  .stick{display:grid;gap:10px;grid-template-columns:1fr}
+  @media(min-width:620px){.stick{grid-template-columns:1fr 1fr}}
+  .sn{border-radius:12px;padding:14px 16px;background:var(--card);border:1px solid var(--line);
+    border-top:5px solid #F5D25A;display:flex;flex-direction:column;gap:8px}
+  .sn.core{border-top-color:#F5A623}
+  .sn h4{margin:0;font-size:15px}
+  .sn .ideas{display:flex;flex-wrap:wrap;gap:5px}
+  .lane{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));min-width:480px;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px}
+  .lane div{padding:9px 12px;border-bottom:1px solid var(--line)}
+  .lane div:nth-child(3n+2){border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .lane .lh{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:1px;
+    text-transform:uppercase;color:var(--good);font-weight:500}
+  .lane .on{background:var(--blue-soft);color:var(--ink);font-weight:500}
+  ol.q{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
 </style>
 
 <div class="wrap">
@@ -223,198 +251,185 @@
 <header>
   <h1>placED.</h1>
   <p class="sub">Initial Research</p>
-  <p class="kicker">Desk research • Student interviews • Placement cell conversations • Insights</p>
+  <p class="kicker">Problem framing • Student interviews • Placement cell interview • Insights</p>
   <div class="stats">
-    <div class="st"><b>—</b><span>students interviewed</span></div>
-    <div class="st"><b>—</b><span>placement cell / faculty</span></div>
-    <div class="st"><b>5</b><span>research themes</span></div>
-    <div class="st"><b>—</b><span>key insights</span></div>
+    <div class="st"><b>13</b><span>colleges, student interviews</span></div>
+    <div class="st"><b>8 / 13</b><span>had no placement platform</span></div>
+    <div class="st"><b>4</b><span>kinds of setup</span></div>
+    <div class="st"><b>10</b><span>themes from the interviews</span></div>
   </div>
 </header>
 
-<nav class="anchors" aria-label="Sections">
-  <div class="abar">
-    <a href="#overview"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg>Overview</a>
-    <a href="#problem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>The problem</a>
-    <a href="#learn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg>Research goals</a>
-    <a href="#groups"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg>Who I spoke to</a>
-    <a href="#questions"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg>Interview questions</a>
-    <a href="#themes"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>What I heard</a>
-    <a href="#insights"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Key insights</a>
-    <a href="#design"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg>Into design</a>
-  </div>
-</nav>
+<nav class="anchors" aria-label="Sections"><div class="abar">
+<a href="#overview"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg>Overview</a><a href="#problem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>The problem</a><a href="#users"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg>Who</a><a href="#journeys"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></svg>Journeys</a><a href="#questions"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg>Questions</a><a href="#colleges"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>13 colleges</a><a href="#cell"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg>Placement cell</a><a href="#themes"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Themes</a><a href="#insights"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>Key insights</a><a href="#ideation"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg>Ideation</a><a href="#whiteboard"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></svg>Whiteboarding</a><a href="#design"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg>Into design</a>
+</div></nav>
 
 <section id="overview">
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg></span><h2>Overview</h2></div>
-  <p>Before designing anything, I wanted to understand how final-year students actually keep track of campus placements, where information comes from, and where things fall through the cracks.</p>
-  <div class="scroll" style="margin-top:16px">
-    <table>
-      <tr><th>Area</th><th>Details</th></tr>
-      <tr><td>Research methods</td><td>Desk research, semi-structured interviews</td></tr>
-      <tr><td>Students interviewed</td><td>— <span class="note">(add number)</span></td></tr>
-      <tr><td>Placement cell / faculty</td><td>— <span class="note">(add number)</span></td></tr>
-      <tr><td>Session length</td><td>— <span class="note">(e.g. 20–30 minutes)</span></td></tr>
-      <tr><td>What I looked for</td><td>Where placement information arrives, how it is tracked, what gets missed, and how students feel about it</td></tr>
-    </table>
-  </div>
+  <p>Before designing anything, I wanted to understand how campus placement actually runs: where information reaches students, how they apply, and where things fall through the cracks. I interviewed students from 13 colleges across India and spoke to a placement cell.</p>
+  <div class="scroll" style="margin-top:16px"><table>
+    <tr><th>Area</th><th>Details</th></tr>
+    <tr><td>Method</td><td>Semi-structured interviews, journey mapping, swimlane diagram</td></tr>
+    <tr><td>Students</td><td>13 colleges, placement years 2017–2024</td></tr>
+    <tr><td>Placement cell</td><td>Walk-through of a drive from first company contact to offer</td></tr>
+    <tr><td>How I coded notes</td><td><span class="pain" style="display:inline-block">Pain point</span> <span class="thought" style="display:inline-block">My thoughts / ecosystem</span> <span class="idea" style="display:inline-block">Possibilities / ideas</span></td></tr>
+  </table></div>
 </section>
 
 <section id="problem">
-  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span><h2>The problem I started with</h2></div>
-  <div class="quote">Students don’t struggle to apply for jobs. They struggle to keep track of them.</div>
-  <p style="margin-top:14px">Placement information is spread across the college portal, WhatsApp groups, Gmail and company websites. The student holds it all together: re-typing the same details, losing track of which resume went where, and missing updates that arrive in the wrong place at the wrong time.</p>
-  <div class="o ki" style="margin-top:6px"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Assumption to test</span><span>Most tracking apps ask the student to maintain a list. That only works with the discipline to keep it updated during the busiest month of the year.</span></div>
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span><h2>The problem</h2></div>
+  <div class="quote">How might we help students and job seekers organise and track their job applications effectively?</div>
+  <div class="stats" style="grid-template-columns:1fr 1fr">
+    <div class="st"><b>75–80 lakh</b><span>bachelor’s graduates in India every year</span></div>
+    <div class="st"><b>?</b><span>Why isn’t the current ecosystem already solving this?</span></div>
+  </div>
+  <p style="margin-top:14px">Goal: understand the end-to-end campus placement experience of students, and identify the most significant challenges they face while navigating multiple recruitment platforms and processes.</p>
 </section>
 
-<section id="learn">
-  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg></span><h2>What I wanted to learn</h2></div>
-  <ul>
-    <li>Where does placement information reach students, and which channel do they trust most?</li>
-    <li>How do students track applications today, and do they keep it up?</li>
-    <li>How many resume versions do they manage, and do they remember which went where?</li>
-    <li>What have they missed: deadlines, replies, interview clashes?</li>
-    <li>How comfortable are they giving an app access to their email?</li>
-  </ul>
-</section>
-
-<section id="groups">
-  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span><h2>Who I spoke to</h2></div>
+<section id="users">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span><h2>Who I looked at</h2></div>
+  <p>Early-career job seekers: final-year students, campus placement, off-campus applicants, fresh graduates, internship seekers, and young professionals changing jobs. I started with three groups:</p>
   <div class="who">
-    <div class="r">
-      <span class="ic"><svg viewBox="0 0 24 24"><path d="m12 4 10 5-10 5L2 9z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
-      <div><h4>Final-year students</h4>
-      <p>Students applying through campus placements now, or about to. They described their day-to-day process and what goes wrong.</p></div>
-    </div>
-    <div class="r">
-      <span class="ic"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span>
-      <div><h4>Placement cell and faculty</h4>
-      <p>They run the drives. They explained how information is sent out and where students most often drop the ball.</p></div>
-    </div>
+    <div class="r"><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span><div><h4>Students</h4><p>What is happening in the current process, and how we could address it.</p></div></div>
+    <div class="r"><span class="ic"><svg viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.2"/><path d="M17 11h5M19.5 8.5v5"/></svg></span><div><h4>Young professionals (1–3 years’ experience)</h4><p>What mattered in hindsight.</p></div></div>
+    <div class="r"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg></span><div><h4>Placement cell</h4><p>How drives run from their side, and what they repeat by hand.</p></div></div>
+  </div>
+  <div class="cols" style="margin-top:14px">
+    <div class="card"><p class="tag">Students need</p><ul><li>Company tracker</li><li>Assessment tracker</li><li>Interview timeline</li><li>Resume versions</li><li>Placement notice / calendar</li><li>Document vault (profile, resume)</li><li>Placement dashboard</li><li>Interview tips</li></ul></div>
+    <div class="card"><p class="tag">Young professionals need</p><ul><li>LinkedIn application tracker</li><li>Naukri / Indeed / cold-email integration</li><li>Referral tracker</li><li>Recruiter contact management</li><li>Follow-up reminders</li><li>Offer comparison</li><li>Salary negotiation notes</li><li>Resume versions</li></ul></div>
+  </div>
+</section>
+
+<section id="journeys">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></svg></span><h2>Two journeys</h2></div>
+  <div class="meta">
+    <div class="mrow"><span class="k">Job application</span><span class="flow"><span class="chip">Search jobs</span><span class="arw">→</span><span class="chip">Apply (prepare resume)</span><span class="arw">→</span><span class="chip">Assessment</span><span class="arw">→</span><span class="chip">Interview</span><span class="arw">→</span><span class="chip">Offer (salary negotiation)</span><span class="arw">→</span><span class="chip">Joining</span></span></div>
+    <div class="mrow"><span class="k">Campus placement</span><span class="flow"><span class="chip">Company announced</span><span class="arw">→</span><span class="chip">Create profile on platform</span><span class="arw">→</span><span class="chip">Check eligibility</span><span class="arw">→</span><span class="chip">Register (prepare resume)</span><span class="arw">→</span><span class="chip">Assessment</span><span class="arw">→</span><span class="chip">Shortlisted</span><span class="arw">→</span><span class="chip">Interview 1…n</span><span class="arw">→</span><span class="chip">HR round</span><span class="arw">→</span><span class="chip">Waiting</span><span class="arw">→</span><span class="chip">Offer / rejection</span></span></div>
   </div>
 </section>
 
 <section id="questions">
-  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg></span><h2>Interview questions I asked</h2></div>
-  <ul>
-    <li>Walk me through the last job you applied for. Where did you first hear about it?</li>
-    <li>How do you keep track of everything you’ve applied to?</li>
-    <li>Have you ever missed a deadline, update or interview? What happened?</li>
-    <li>How many versions of your resume do you have? How do you pick one?</li>
-    <li>Would you let an app read your placement email? What would make you say no?</li>
-  </ul>
-  <div class="todo" style="margin-top:16px"><b>To fill in</b>Replace with the exact questions from your interview guide.</div>
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2a2.9 2.9 0 1 1 3.6 3.6c-.6.3-.8.8-.8 1.4"/><path d="M12 17.4h.01"/></svg></span><h2>Questions I asked</h2></div>
+  <div class="cols">
+    <div class="card"><p class="tag">Students</p><ol class="q">
+      <li>Can you walk me through your placement journey so far?</li>
+      <li>What platforms, apps or channels do you use during placement? (Superset, POD, WhatsApp…)</li>
+      <li>Tell me about the last company you applied to. What steps did you go through?</li>
+      <li>What is the most difficult or frustrating part of placement for you, and of the placement platform? Why?</li>
+      <li>How do you currently keep track of your applications, deadlines, interviews and documents?</li>
+      <li>Have you ever forgotten or missed something important during placement? What happened?</li>
+      <li>Is there anything about the placement platform that causes you stress or feels overwhelming?</li>
+      <li>Did you use the placement platform on mobile?</li>
+    </ol></div>
+    <div class="card"><p class="tag">Placement cell</p><ol class="q">
+      <li>Can you walk me through the placement process from the day a company contacts the college until offers are released?</li>
+      <li>How do you usually communicate updates to students?</li>
+      <li>Why was WhatsApp chosen over other platforms?</li>
+      <li>Which information do you have to send repeatedly?</li>
+      <li>Which tasks could you automate if you had the right tool?</li>
+    </ol></div>
+  </div>
 </section>
 
+<section id="colleges">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><h2>What students told me, college by college</h2></div>
+  <div class="legend"><span class="pain">Pain point</span><span class="thought">My thoughts / ecosystem</span><span class="idea">Possibility / idea</span></div>
+  <div class="ttabs" role="tablist"><button class="ttab on" data-t="pod" role="tab" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>POD · 1</button><button class="ttab" data-t="superset" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Superset · 1</button><button class="ttab" data-t="own" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Own website · 3</button><button class="ttab" data-t="none" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>No platform · 8</button></div>
+  <div class="task show" id="pod" style="background:transparent;border:0;padding:0"><p class="note">College uses POD, a placement platform</p><div class="cols"><div class="card"><div><p class="tag">2024 · POD</p><h4>MIT-ID</h4></div>
+      <span class="flow"><span class="chip">Form to sit in placement</span><span class="arw">→</span><span class="chip">Register on POD with college Outlook ID</span><span class="arw">→</span><span class="chip">Profile + resume</span><span class="arw">→</span><span class="chip">WhatsApp notification</span><span class="arw">→</span><span class="chip">Apply on POD</span><span class="arw">→</span><span class="chip">Shortlist on WhatsApp / Outlook</span><span class="arw">→</span><span class="chip">Interview</span><span class="arw">→</span><span class="chip">Selection via WhatsApp or mail</span></span>
+      <div class="pains"><span class="pain">Most students don’t open their college Outlook regularly</span><span class="pain">Notifications get missed among too many WhatsApp messages</span><span class="pain">Can’t delete old resumes when updating for a company-specific role</span><span class="pain">Some companies redirect to their careers page, so the profile has to be made again</span><span class="pain">No status or stage of the application; no update on POD after selection</span><span class="thought">The placement cell doesn’t have much time; keeping POD updated becomes an extra task</span><span class="idea">What if students could download a format for that company and upload the resume directly?</span><span class="idea">A broadcast channel instead of a group</span></div></div></div></div><div class="task" id="superset" style="background:transparent;border:0;padding:0"><p class="note">College uses Superset</p><div class="cols"><div class="card"><div><p class="tag">2023 · Superset · online (Covid)</p><h4>Presidency University</h4></div>
+      <span class="flow"><span class="chip">Register on Superset</span><span class="arw">→</span><span class="chip">Make profile</span><span class="arw">→</span><span class="chip">If eligible, apply</span><span class="arw">→</span><span class="chip">Updates on Gmail / WhatsApp</span></span>
+      <div class="pains"><span class="pain">Not good on mobile</span><span class="pain">Notification issues</span><span class="pain">No updates or status</span></div></div></div></div><div class="task" id="own" style="background:transparent;border:0;padding:0"><p class="note">College built its own portal</p><div class="cols"><div class="card"><div><p class="tag">2024 · own website</p><h4>VIT Chennai</h4></div>
+      <span class="flow"><span class="chip">Opt-in form</span><span class="arw">→</span><span class="chip">Placement training & talks</span><span class="arw">→</span><span class="chip">VIT internal platform</span><span class="arw">→</span><span class="chip">Apply on platform + college Google form</span><span class="arw">→</span><span class="chip">Interview on Gmail</span><span class="arw">→</span><span class="chip">Selection on Gmail</span></span>
+      <div class="pains"><span class="pain">Not on mobile and no notifications</span><span class="pain">Not selected if both the platform and the Google form aren’t filled</span><span class="pain">Some companies redirect to their careers page</span><span class="pain">No notification, no status</span></div></div><div class="card"><div><p class="tag">2024 · own website</p><h4>NIFT Gandhinagar</h4></div>
+      <span class="flow"><span class="chip">Website used to generate resume</span><span class="arw">→</span><span class="chip">Company timeline Excel shared</span><span class="arw">→</span><span class="chip">Offline placement mela or online (company message on WhatsApp → Google form → WhatsApp updates)</span><span class="arw">→</span><span class="chip">Selection</span></span>
+      <div class="pains"><span class="pain">Website is one-time use for the resume, with no updates after</span><span class="pain">Not a mobile-friendly app</span><span class="pain">Placement mela (Mumbai, Delhi, Gandhinagar) is costly</span><span class="pain">Crowd management at on-the-spot interviews</span><span class="pain">5-day deadline; updates are WhatsApp or verbal through professors</span></div></div><div class="card"><div><p class="tag">2023 · own website</p><h4>Amity, Noida</h4></div>
+      <span class="flow"><span class="chip">Log in with student ID</span><span class="arw">→</span><span class="chip">Apply: personal info</span><span class="arw">→</span><span class="chip">Google form link</span><span class="arw">→</span><span class="chip">If shortlisted, mail</span><span class="arw">→</span><span class="chip">Track on Amity platform</span></span>
+      <div class="pains"><span class="pain">Session timeout: has to log in every time</span><span class="pain">No notifications from the website</span><span class="pain">Updates still come through the WhatsApp group</span></div></div></div></div><div class="task" id="none" style="background:transparent;border:0;padding:0"><p class="note">Everything runs on WhatsApp, Gmail and Google Forms</p><div class="cols"><div class="card"><div><p class="tag">2022 · no platform</p><h4>SPA, Delhi</h4></div>
+      <span class="flow"><span class="chip">WhatsApp group with placement cell</span><span class="arw">→</span><span class="chip">Apply via Google form / Drive / Gmail, depending on company</span><span class="arw">→</span><span class="chip">Updates through WhatsApp only</span></span>
+      <div class="pains"><span class="pain">Updates and status not visible</span></div></div><div class="card"><div><p class="tag">2024 · Masters · no platform</p><h4>SPPT</h4></div>
+      <span class="flow"><span class="chip">Mostly off-campus via student council</span><span class="arw">→</span><span class="chip">Whole-class resume & portfolio shared as infographics</span><span class="arw">→</span><span class="chip">Company reaches out</span><span class="arw">→</span><span class="chip">Interview</span><span class="arw">→</span><span class="chip">Selection</span></span>
+      <div class="pains"><span class="pain">Didn’t know whether they’d be selected or not</span><span class="pain">Mismatch between on-campus and off-campus calls to action</span></div></div><div class="card"><div><p class="tag">2023 · no platform</p><h4>National Education</h4></div>
+      <span class="flow"><span class="chip">Company on campus</span><span class="arw">→</span><span class="chip">Online test (1 hr)</span><span class="arw">→</span><span class="chip">Rounds 1–3</span><span class="arw">→</span><span class="chip">Interview</span><span class="arw">→</span><span class="chip">Updates on WhatsApp</span></span>
+      <div class="pains"><span class="pain">The whole day goes on one company</span><span class="thought">Companies are tiered by package: up to 4, 5–8 core, 9+ dream</span></div></div><div class="card"><div><p class="tag">2023 · no platform</p><h4>MOP Vaishnav College for Women, Chennai</h4></div>
+      <span class="flow"><span class="chip">WhatsApp group</span><span class="arw">→</span><span class="chip">JD PDF on message</span><span class="arw">→</span><span class="chip">Google form per company</span><span class="arw">→</span><span class="chip">Design assignment on mail</span><span class="arw">→</span><span class="chip">Whole process on mail or WhatsApp</span></span>
+      <div class="pains"><span class="pain">A new Google form for every company</span></div></div><div class="card"><div><p class="tag">2024 · no platform</p><h4>HR College, Mumbai</h4></div>
+      <span class="flow"><span class="chip">WhatsApp / Gmail</span><span class="arw">→</span><span class="chip">Company portal link + guidance + time + Drive (college record)</span><span class="arw">→</span><span class="chip">Offline interviews at company office</span><span class="arw">→</span><span class="chip">If selected, mail from company</span></span>
+      <div class="pains"><span class="pain">Tight deadlines</span><span class="pain">Direct calls from the placement cell from unknown numbers → missed calls</span><span class="pain">Overlapping interview timings</span><span class="pain">Drive filled only for the college’s record</span></div></div><div class="card"><div><p class="tag">2021 · no platform</p><h4>Manipal University, WGSHA</h4></div>
+      <span class="flow"><span class="chip">WhatsApp + Gmail: company list, schedule, requirements</span><span class="arw">→</span><span class="chip">Online interviews (Covid)</span><span class="arw">→</span><span class="chip">Zoom GD + personal interview</span><span class="arw">→</span><span class="chip">Selection on mail</span></span>
+      <div class="pains"><span class="pain">Everything split between WhatsApp and Gmail</span></div></div><div class="card"><div><p class="tag">2024 · no platform</p><h4>Mount Carmel, Bangalore</h4></div>
+      <span class="flow"><span class="chip">1-week course: pre-placement talk, interview prep, resume</span><span class="arw">→</span><span class="chip">Opt-in form</span><span class="arw">→</span><span class="chip">WhatsApp group</span><span class="arw">→</span><span class="chip">Apply on Google form</span><span class="arw">→</span><span class="chip">Company portal (link via Gmail)</span><span class="arw">→</span><span class="chip">Test link</span><span class="arw">→</span><span class="chip">Updates on WhatsApp</span><span class="arw">→</span><span class="chip">Offer letter on Gmail</span></span>
+      <div class="pains"><span class="pain">Google form is only for the college’s record of who applied</span><span class="pain">Constant context switching between WhatsApp, Gmail and portals</span></div></div><div class="card"><div><p class="tag">2017 · no portal</p><h4>Andhra University</h4></div>
+      <span class="flow"><span class="chip">Gmail</span><span class="arw">→</span><span class="chip">Form</span><span class="arw">→</span><span class="chip">On-call HR interview</span><span class="arw">→</span><span class="chip">Panel interview</span><span class="arw">→</span><span class="chip">Written test</span><span class="arw">→</span><span class="chip">Document verification</span><span class="arw">→</span><span class="chip">Email confirmation</span></span>
+      <div class="pains"><span class="pain">No special portal; 2-day on-campus drive with on-the-spot interviews</span></div></div></div></div>
+</section>
+
+<section id="cell">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg></span><h2>Placement cell: how a drive runs</h2></div>
+  <p>A swimlane of one drive (POD college), from first contact to result.</p>
+  <div class="scroll" style="margin-top:12px"><div class="lane"><div class="lh">Placement cell</div><div class="lh">Company</div><div class="lh">Students</div><div class="on">Reach out to company</div><div class=""></div><div class=""></div><div class=""></div><div class="on">Share hiring requirements (eligibility, JD, timeline)</div><div class=""></div><div class="on">If timeline is short → send on WhatsApp; else post on POD</div><div class=""></div><div class="on">Receive on WhatsApp or view on POD</div><div class=""></div><div class=""></div><div class="on">Apply on POD</div><div class="on">Download resumes from POD</div><div class=""></div><div class=""></div><div class=""></div><div class="on">Receive resumes, shortlist, send shortlisted students</div><div class=""></div><div class="on">Company asks: “Can we communicate directly?” → decision</div><div class=""></div><div class=""></div><div class=""></div><div class="on">If no: email shortlisted students (cc placement cell)</div><div class="on">Receive email: assignment / test link</div><div class=""></div><div class="on">Conduct test / interview</div><div class="on">Attend test / interview</div><div class=""></div><div class="on">Send final list</div><div class=""></div><div class="on">Update POD, send WhatsApp message, send email</div><div class=""></div><div class="on">View result on POD, WhatsApp and email</div></div></div>
+  <div class="pains" style="margin-top:14px">
+    <span class="thought">The placement cell is very small compared to the number of students in a college.</span>
+    <span class="thought">WhatsApp wins when the timeline is short, so the same update goes out on POD, WhatsApp and email.</span>
+    <span class="idea">Automate: read Gmail → update the status, rather than the cell posting it three times.</span>
+  </div>
+</section>
+
+
 <section id="themes">
-  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><h2>What I heard</h2></div>
-
-  <div class="ttabs" role="tablist"><button class="ttab on" data-t="t1" role="tab" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>Scattered info</button><button class="ttab" data-t="t2" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Tracking</button><button class="ttab" data-t="t3" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 16h4"/></svg>Resumes</button><button class="ttab" data-t="t4" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Missed updates</button><button class="ttab" data-t="t5" role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Trust &amp; privacy</button></div>
-  <div class="task show" id="t1">
-    <div><p class="tnum">Theme 1</p><h3>Information is scattered</h3></div>
-    <div class="meta">
-      <div class="mrow"><span class="k">Question</span><span>Where does placement information actually reach students?</span></div>
-      <div class="mrow"><span class="k">Focus</span><span>College portal, WhatsApp groups, Gmail and company websites</span></div>
-    </div>
-    <div class="quote">“Add a direct quote from an interview.”</div>
-    <div class="obs"><div class="h">What I heard</div>
-      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
-    </div>
-    <div class="out">
-      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
-      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
-      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
-    </div>
-  </div>
-
-  <div class="task" id="t2">
-    <div><p class="tnum">Theme 2</p><h3>Tracking falls apart</h3></div>
-    <div class="meta">
-      <div class="mrow"><span class="k">Question</span><span>How do students keep track of applications today?</span></div>
-      <div class="mrow"><span class="k">Focus</span><span>Spreadsheets, notes apps, memory, screenshots</span></div>
-    </div>
-    <div class="quote">“Add a direct quote from an interview.”</div>
-    <div class="obs"><div class="h">What I heard</div>
-      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
-    </div>
-    <div class="out">
-      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
-      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
-      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
-    </div>
-  </div>
-
-  <div class="task" id="t3">
-    <div><p class="tnum">Theme 3</p><h3>Too many resume versions</h3></div>
-    <div class="meta">
-      <div class="mrow"><span class="k">Question</span><span>How do students choose and remember which resume they sent?</span></div>
-      <div class="mrow"><span class="k">Focus</span><span>Resume versions and where each was sent</span></div>
-    </div>
-    <div class="quote">“Add a direct quote from an interview.”</div>
-    <div class="obs"><div class="h">What I heard</div>
-      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
-    </div>
-    <div class="out">
-      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
-      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
-      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
-    </div>
-  </div>
-
-  <div class="task" id="t4">
-    <div><p class="tnum">Theme 4</p><h3>Updates arrive in the wrong place</h3></div>
-    <div class="meta">
-      <div class="mrow"><span class="k">Question</span><span>What do students miss, and why?</span></div>
-      <div class="mrow"><span class="k">Focus</span><span>Deadlines, company replies, interview clashes</span></div>
-    </div>
-    <div class="quote">“Add a direct quote from an interview.”</div>
-    <div class="obs"><div class="h">What I heard</div>
-      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
-    </div>
-    <div class="out">
-      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
-      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
-      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
-    </div>
-  </div>
-
-  <div class="task" id="t5">
-    <div><p class="tnum">Theme 5</p><h3>Trust and email access</h3></div>
-    <div class="meta">
-      <div class="mrow"><span class="k">Question</span><span>Would students let an app read their placement email?</span></div>
-      <div class="mrow"><span class="k">Focus</span><span>Privacy concerns and what would make it acceptable</span></div>
-    </div>
-    <div class="quote">“Add a direct quote from an interview.”</div>
-    <div class="obs"><div class="h">What I heard</div>
-      <div class="todo"><b>To fill in</b>Add 2–4 observations, with counts where you have them (e.g. “6 of 8 students…”).</div>
-    </div>
-    <div class="out">
-      <div class="o fr"><span class="l"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>Pain point</span><span>—</span></div>
-      <div class="o ki"><span class="l"><svg viewBox="0 0 24 24"><path d="M9.2 16.5a6 6 0 1 1 5.6 0v2.2H9.2z"/><path d="M10 21h4"/></svg>Key insight</span><span>—</span></div>
-      <div class="o dc"><span class="l"><svg viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="M14 4v4M12 6h4M18 12v3M16.5 13.5h3"/></svg>Design opportunity</span><span>—</span></div>
-    </div>
-  </div>
-
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Thematic analysis</h2></div>
+  <p>I clustered every pain point from the interviews onto sticky notes. Ten themes came out. The four in orange showed up most often and became the core of the problem.</p>
+  <div class="quote" style="margin:14px 0">Students don’t struggle to apply. They struggle to manage the placement journey.</div>
+  <div class="legend"><span class="thought">Orange top = core theme</span><span class="idea">Ideas it sparked</span></div>
+  <div class="stick"><div class="sn"><h4>Scattered information</h4><div class="ideas"><span class="idea">Browser extension</span><span class="idea">AI info aggregator</span></div></div><div class="sn"><h4>WhatsApp is useful but chaotic</h4><div class="ideas"><span class="idea">Broadcast message</span><span class="idea">AI importance scan</span><span class="idea">AI chat summary</span><span class="idea">Auto labelling</span></div></div><div class="sn"><h4>Communication gap</h4><div class="ideas"><span class="idea">AI smart chatbot → escalate to placement cell</span></div></div><div class="sn core"><h4>Process is different everywhere</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span><span class="idea">Resume parser</span><span class="idea">Smart document vault</span></div></div><div class="sn"><h4>Repeated manual work like profile creation and personal info</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span></div></div><div class="sn"><h4>Resume versions</h4><div class="ideas"><span class="idea">GitHub for resumes</span><span class="idea">Resume recommendation AI</span><span class="idea">Resume analytics: success rate of each version</span><span class="idea">ATS score before submission</span><span class="idea">AI resume memory</span></div></div><div class="sn core"><h4>No status transparency after applying</h4><div class="ideas"><span class="idea">Needs data from the placement cell or company side</span></div></div><div class="sn core"><h4>Heavy dependence on placement coordinators</h4><div class="ideas"></div></div><div class="sn core"><h4>Missed opportunities due to not receiving updates</h4><div class="ideas"></div></div><div class="sn"><h4>Deadline management</h4><div class="ideas"><span class="idea">Deadline heatmap</span><span class="idea">Lock-screen widget</span></div></div></div>
 </section>
 
 <section id="insights">
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Key insights</h2></div>
-  <p>Across the interviews, the themes pointed to a few larger patterns.</p>
-  <div class="scroll" style="margin-top:16px">
-    <table>
-      <tr><th>Insight</th><th>Evidence</th><th>What it means for placED.</th></tr>
-      <tr><td>The student is the system</td><td>—</td><td>The record should build itself, not rely on manual upkeep.</td></tr>
-      <tr><td>Manual tracking doesn’t survive placement season</td><td>—</td><td>Capture jobs from wherever they’re seen, in one tap.</td></tr>
-      <tr><td>Email is where the truth arrives</td><td>—</td><td>Read placement mail and update the status when a company replies.</td></tr>
-      <tr><td>Resume choice is guesswork</td><td>—</td><td>Suggest a resume and remember where each version went.</td></tr>
-    </table>
+  <div class="scroll"><table>
+    <tr><th>Insight</th><th>Evidence</th><th>What it means for placED.</th></tr>
+    <tr><td>There is no single source of truth</td><td>8 of 13 colleges had no platform. Even with one, updates still came over WhatsApp, Gmail, Outlook and Google Forms.</td><td>Bring everything into one record the student owns.</td></tr>
+    <tr><td>Status is invisible</td><td>“No status” at MIT, Presidency, VIT, SPA, SPPT and Amity. Students didn’t know if they were selected.</td><td>Show every application’s current stage at a glance.</td></tr>
+    <tr><td>Updates arrive in the wrong place</td><td>Unread college Outlook, buried WhatsApp messages, calls from unknown numbers, no notifications.</td><td>Read the inbox students apply from and update status automatically.</td></tr>
+    <tr><td>Students re-enter the same details</td><td>Profile again on careers pages, platform + Google form, a new form per company.</td><td>Capture a posting once; never re-type.</td></tr>
+    <tr><td>Resumes are hard to manage</td><td>Can’t delete old resumes; tailoring per company.</td><td>A resume library that remembers what went where.</td></tr>
+    <tr><td>Platforms don’t work on the phone</td><td>Not usable on mobile at Presidency, VIT and NIFT; session timeouts at Amity.</td><td>Mobile first.</td></tr>
+  </table></div>
+  <p class="note" style="margin-top:14px">Also heard: overlapping interview timings (HR College) and test days that take the whole day (National Education). Both point to a calendar that flags clashes.</p>
+</section>
+
+
+<section id="ideation">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg></span><h2>Ideation: two surfaces</h2></div>
+  <p>The ideas split naturally between where students apply (the browser) and where they check in (the phone).</p>
+  <div class="cols">
+    <div class="card"><p class="tag">Web plugin</p><h4>Where applying happens</h4><ul>
+      <li>Resume versions</li><li>Resume recommendations</li><li>Autofill forms from the resume</li>
+      <li>Scans the job page and stores the JD, dates and other details</li></ul></div>
+    <div class="card"><p class="tag">Mobile app</p><h4>Where updates land</h4><ul>
+      <li>View every application and its details</li><li>Resumes</li>
+      <li>Lock-screen widget for deadlines and other updates</li>
+      <li>Link Gmail, read updates from POD, LinkedIn and Naukri, and notify me</li><li>AI chatbot</li></ul></div>
   </div>
-  <div class="todo" style="margin-top:14px"><b>To fill in</b>Add the evidence column from your interviews, and edit the insights to match what you actually found.</div>
+  <div class="o dc" style="margin-top:12px"><span class="l">Idea · explored</span><span>What if the plugin converts a Figma resume into an ATS-checked resume?</span></div>
+</section>
+
+<section id="whiteboard">
+  <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"/></svg></span><h2>Whiteboarding the first flow</h2></div>
+  <p>I sketched the mobile app’s first-run flow:</p>
+  <div class="meta"><div class="mrow"><span class="k">Onboarding</span><span class="flow"><span class="chip">Download app</span><span class="arw">→</span><span class="chip">Sign up / log in (Gmail OAuth)</span><span class="arw">→</span><span class="chip">Connect Gmail for updates</span><span class="arw">→</span><span class="chip">Fill Student Passport</span><span class="arw">→</span><span class="chip">Prompt: install the browser plugin</span><span class="arw">→</span><span class="chip">Home: “No active applications yet!”</span></span></div>
+  <div class="mrow"><span class="k">Then</span><span>Updates are fetched from Gmail, and new jobs arrive from the browser plugin.</span></div></div>
+  <p style="margin-top:16px">Questions I had to answer before going further:</p>
+  <div class="out">
+    <div class="o fr"><span class="l">Why not just use Notion or Sheets?</span><span>Because here the status updates itself, and your notes stay yours.</span></div>
+    <div class="o fr"><span class="l">Will students open the app, or just read notifications?</span><span>Most students: notifications only, glance and go. An active subset opens the app for the resume centre and an AI copilot.</span></div>
+  </div>
+  <p class="note" style="margin-top:14px">The Student Passport step from this sketch later turned out to be the most confusing part of onboarding in usability testing.</p>
 </section>
 
 <section id="design">
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 5h11l-1.8 3.4L16 12H5z"/></svg></span><h2>From research to design</h2></div>
-  <p>The research shaped the three ideas behind placED.:</p>
+  <p>The placement cell is stretched thin, so placED. can’t depend on them changing how they work. The app has to work around the mess students already live in.</p>
   <div class="out">
     <div class="o ki"><span class="l">1 · Capture</span><span>See a job posting anywhere, tap the floating widget, and the app reads the details off the screen.</span></div>
     <div class="o ki"><span class="l">2 · Track</span><span>Connect the email you use to apply. The app reads placement mail and updates the status when a company replies.</span></div>
@@ -424,10 +439,7 @@
   <p class="note" style="margin-top:16px">These ideas were then tested in five task flows. See <a href="testing-plan.html">the test plan</a> and <a href="testing-analysis.html">the usability testing analysis</a>.</p>
 </section>
 
-<footer>
-  <p>placED. · Initial Research · Desk research • Interviews • Insights</p>
-</footer>
-
+<footer><p>placED. · Initial Research · Problem framing • Interviews • Insights</p></footer>
 </div>
 <script>
   (function(){
@@ -469,3 +481,4 @@
     });
   });
 </script>
+
