@@ -236,13 +236,18 @@
   .sn.core{border-top-color:#F5A623}
   .sn h4{margin:0;font-size:15px}
   .sn .ideas{display:flex;flex-wrap:wrap;gap:5px}
-  .lane{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));min-width:480px;
-    background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px}
-  .lane div{padding:9px 12px;border-bottom:1px solid var(--line)}
-  .lane div:nth-child(3n+2){border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .lane{position:relative;display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));
+    column-gap:44px;row-gap:22px;min-width:560px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:18px 22px;font-size:13.5px}
   .lane .lh{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:1px;
-    text-transform:uppercase;color:var(--good);font-weight:500}
-  .lane .on{background:var(--blue-soft);color:var(--ink);font-weight:500}
+    text-transform:uppercase;color:var(--good);font-weight:500;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .lane .cell{min-height:1px}
+  .lane .step{position:relative;z-index:1;background:var(--blue-soft);border:1px solid var(--blue);
+    border-radius:10px;padding:9px 12px;color:var(--ink);font-weight:500;line-height:1.4}
+  .lane .step.dec{border-style:dashed;background:var(--warm-soft);border-color:var(--warm)}
+  .lane svg.arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+  .lane svg.arrows path{fill:none;stroke:var(--blue);stroke-width:1.6}
+  .lane svg.arrows .ah{fill:var(--blue);stroke:none}
   ol.q{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
 </style>
 
@@ -367,7 +372,7 @@
 <section id="cell">
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg></span><h2>Placement cell: how a drive runs</h2></div>
   <p>A swimlane of one drive (POD college), from first contact to result.</p>
-  <div class="scroll" style="margin-top:12px"><div class="lane"><div class="lh">Placement cell</div><div class="lh">Company</div><div class="lh">Students</div><div class="on">Reach out to company</div><div class=""></div><div class=""></div><div class=""></div><div class="on">Share hiring requirements (eligibility, JD, timeline)</div><div class=""></div><div class="on">If timeline is short → send on WhatsApp; else post on POD</div><div class=""></div><div class="on">Receive on WhatsApp or view on POD</div><div class=""></div><div class=""></div><div class="on">Apply on POD</div><div class="on">Download resumes from POD</div><div class=""></div><div class=""></div><div class=""></div><div class="on">Receive resumes, shortlist, send shortlisted students</div><div class=""></div><div class="on">Company asks: “Can we communicate directly?” → decision</div><div class=""></div><div class=""></div><div class=""></div><div class="on">If no: email shortlisted students (cc placement cell)</div><div class="on">Receive email: assignment / test link</div><div class=""></div><div class="on">Conduct test / interview</div><div class="on">Attend test / interview</div><div class=""></div><div class="on">Send final list</div><div class=""></div><div class="on">Update POD, send WhatsApp message, send email</div><div class=""></div><div class="on">View result on POD, WhatsApp and email</div></div></div>
+  <div class="scroll" style="margin-top:12px"><div class="lane"><div class="lh">Placement cell</div><div class="lh">Company</div><div class="lh">Students</div><div class="cell"><div class="step" id="s0-0">Reach out to company</div></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"><div class="step" id="s1-1">Share hiring requirements (eligibility, JD, timeline)</div></div><div class="cell"></div><div class="cell"><div class="step" id="s2-0">If timeline is short → send on WhatsApp; else post on POD</div></div><div class="cell"></div><div class="cell"><div class="step" id="s2-2">Receive on WhatsApp or view on POD</div></div><div class="cell"></div><div class="cell"></div><div class="cell"><div class="step" id="s3-2">Apply on POD</div></div><div class="cell"><div class="step" id="s4-0">Download resumes from POD</div></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"><div class="step" id="s5-1">Receive resumes, shortlist, send shortlisted students</div></div><div class="cell"></div><div class="cell"><div class="step dec" id="s6-0">Company asks: “Can we communicate directly?” → decision</div></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"><div class="step" id="s7-1">If no: email shortlisted students (cc placement cell)</div></div><div class="cell"><div class="step" id="s7-2">Receive email: assignment / test link</div></div><div class="cell"></div><div class="cell"><div class="step" id="s8-1">Conduct test / interview</div></div><div class="cell"><div class="step" id="s8-2">Attend test / interview</div></div><div class="cell"></div><div class="cell"><div class="step" id="s9-1">Send final list</div></div><div class="cell"></div><div class="cell"><div class="step" id="s10-0">Update POD, send WhatsApp message, send email</div></div><div class="cell"></div><div class="cell"><div class="step" id="s10-2">View result on POD, WhatsApp and email</div></div><svg class="arrows" aria-hidden="true"></svg></div></div>
   <div class="pains" style="margin-top:14px">
     <span class="thought">The placement cell is very small compared to the number of students in a college.</span>
     <span class="thought">WhatsApp wins when the timeline is short, so the same update goes out on POD, WhatsApp and email.</span>
@@ -480,5 +485,31 @@
       if (panel) panel.classList.add('show');
     });
   });
+</script>
+
+<script>
+(function(){
+  var E=[["0-0","1-1"],["1-1","2-0"],["2-0","2-2"],["2-2","3-2"],["3-2","4-0"],["4-0","5-1"],["5-1","6-0"],["6-0","7-1"],["7-1","7-2"],["7-1","8-1"],["8-1","8-2"],["8-1","9-1"],["9-1","10-0"],["10-0","10-2"]];
+  var lane=document.querySelector('.lane'); if(!lane) return;
+  var svg=lane.querySelector('svg.arrows'), NS='http://www.w3.org/2000/svg';
+  function box(id){var e=document.getElementById('s'+id),r=e.getBoundingClientRect(),o=lane.getBoundingClientRect();
+    return {l:r.left-o.left,r:r.right-o.left,t:r.top-o.top,b:r.bottom-o.top,cx:(r.left+r.right)/2-o.left,cy:(r.top+r.bottom)/2-o.top};}
+  function head(x,y,dir){var d=6,p;
+    if(dir=='r')p=[x,y,x-d*1.6,y-d,x-d*1.6,y+d];else if(dir=='l')p=[x,y,x+d*1.6,y-d,x+d*1.6,y+d];else p=[x,y,x-d,y-d*1.6,x+d,y-d*1.6];
+    var h=document.createElementNS(NS,'polygon');h.setAttribute('class','ah');h.setAttribute('points',p.join(' '));svg.appendChild(h);}
+  function draw(){
+    svg.innerHTML='';
+    E.forEach(function(e){
+      var a=box(e[0]),b=box(e[1]),d,path=document.createElementNS(NS,'path');
+      var sameRow=e[0].split('-')[0]==e[1].split('-')[0], sameCol=e[0].split('-')[1]==e[1].split('-')[1];
+      if(sameRow){var rt=b.l>a.r;var x1=rt?a.r:a.l,x2=rt?b.l:b.r;d='M'+x1+' '+a.cy+'H'+x2;head(x2,a.cy,rt?'r':'l');}
+      else if(sameCol){d='M'+a.cx+' '+a.b+'V'+b.t;head(a.cx,b.t,'d');}
+      else{var rt=b.cx>a.cx;var x1=rt?a.r:a.l;d='M'+x1+' '+a.cy+'H'+b.cx+'V'+b.t;head(b.cx,b.t,'d');}
+      path.setAttribute('d',d);svg.insertBefore(path,svg.firstChild);
+    });
+  }
+  draw(); window.addEventListener('resize',draw);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+})();
 </script>
 
