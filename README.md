@@ -81,9 +81,7 @@ information architecture. **Surface** ones are wording and layout.
 
 ## What's in this repo
 
-- `testing-plan.html` - the full usability test plan: participants, the script
-  to read out, all five tasks with their flows, what to measure, and the
-  questions to ask after each one.
+- `initial-research.html` - the problem framing, interviews and key insights.
 - `testing-analysis.html` - what came out of the sessions.
 - The app itself - a Next.js build of the version 2 screens, sized for
   iPhone 16. Every screen is built from the Figma file, and all five task
