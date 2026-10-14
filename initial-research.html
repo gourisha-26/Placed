@@ -343,6 +343,12 @@
 .tile2.blue .big{color:var(--ink)}
 .plus::before,.plus::after{background:var(--ink)}
 ul li::before{background:var(--grey)}
+.vtabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:0 0 14px;align-self:flex-start}
+.vtab{border:0;background:transparent;font:inherit;font-size:13.5px;font-weight:600;color:var(--grey);padding:8px 14px;border-radius:9px;cursor:pointer}
+.vtab.on{background:var(--chip-bg);color:var(--chip-fg)}
+.vtab:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.vpanel{display:none}.vpanel.show{display:block}
+img.notes{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#fff}
 </style>
 
 <div class="wrap">
@@ -483,6 +489,9 @@ ul li::before{background:var(--grey)}
 <section id="themes">
   <div class="sh"><span class="tile"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></span><h2>Thematic analysis</h2></div>
   <div class="hero-q">Students don’t struggle to apply. They struggle to manage the placement journey.</div>
+  <div class="vtabs" role="tablist" aria-label="Thematic analysis view"><button class="vtab on" role="tab" aria-selected="true" data-v="v-hand">Handwritten notes</button><button class="vtab" role="tab" aria-selected="false" data-v="v-org">Organised</button></div>
+  <div class="vpanel show" id="v-hand"><a href="thematic-notes.jpg" target="_blank" rel="noopener"><img class="notes" src="thematic-notes.jpg" alt="Handwritten affinity map: ten problem themes on sticky notes, with ideas written around each one" loading="lazy"></a><p class="note" style="margin-top:8px">Tap the image to open it full size.</p></div>
+  <div class="vpanel" id="v-org">
   <div class="cols">
     <button class="tile2 tgl sty y" aria-expanded="false" aria-controls="g-student"><span class="plus" aria-hidden="true"></span><b>Student side · 6</b><span>Problems a student-facing app can solve directly</span></button>
     <button class="tile2 tgl sty o" aria-expanded="false" aria-controls="g-system"><span class="plus" aria-hidden="true"></span><b>Placement cell / company side · 4</b><span>Problems outside the student’s control</span></button>
@@ -492,6 +501,7 @@ ul li::before{background:var(--grey)}
   <div class="grp" id="g-system" hidden><h3 style="margin:22px 0 10px">Placement cell / company side</h3>
   <div class="stick"><div class="sn core"><h4>Process is different everywhere</h4><div class="ideas"><span class="idea">Universal student resume</span><span class="idea">Autofill browser plugin</span><span class="idea">Resume parser</span><span class="idea">Smart document vault</span></div></div><div class="sn core"><h4>No status transparency after applying</h4><div class="ideas"></div></div><div class="sn core"><h4>Heavy dependence on placement coordinators</h4><div class="ideas"></div></div><div class="sn core"><h4>Missed opportunities due to not receiving updates</h4><div class="ideas"></div></div></div></div>
   <div class="o ki" style="margin-top:14px"><span class="l">Why this matters</span><span>placED. can’t change how placement cells or companies work, so it reads the student’s inbox to get the status and updates itself.</span></div>
+</div>
 </section>
 
 <section id="insights">
@@ -609,4 +619,15 @@ document.querySelectorAll('.tgl').forEach(function(b){b.addEventListener('click'
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
 })();
 </script>
-
+<script>
+  document.querySelectorAll('.vtabs').forEach(function(group){
+    var tabs=group.querySelectorAll('.vtab');
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabs.forEach(function(b){ b.classList.remove('on'); b.setAttribute('aria-selected','false'); document.getElementById(b.dataset.v).classList.remove('show'); });
+        btn.classList.add('on'); btn.setAttribute('aria-selected','true');
+        document.getElementById(btn.dataset.v).classList.add('show');
+      });
+    });
+  });
+</script>
