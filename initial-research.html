@@ -5,23 +5,23 @@
 <style>
   :root{
     --paper:#FCFCFD; --card:#FFFFFF; --ink:#12182A; --grey:#6B7488; --line:#E6E9F0;
-    --blue:#1B6DF0; --blue-soft:#EDF3FE; --warm:#C25A00; --warm-soft:#FFF3E6;
+    --blue:#1B6DF0; --blue-soft:#F1F2F5; --warm:#C25A00; --warm-soft:#FFF3E6;
     --good:#0E7A4E; --good-soft:#E6F5EE; --hi:#B3261E; --hi-soft:#FDECEA;
-    --chip-bg:#1B6DF0; --chip-fg:#FFFFFF; --blue-hover:#DCE8FD;
+    --chip-bg:#12182A; --chip-fg:#FFFFFF; --blue-hover:#E6E8EE;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --paper:#0D111C; --card:#151B29; --ink:#EEF1F7; --grey:#98A1B3; --line:#242C3D;
-      --blue:#6FA5FF; --blue-soft:#16233C; --warm:#FFA351; --warm-soft:#2C1F13;
+      --blue:#6FA5FF; --blue-soft:#1C2230; --warm:#FFA351; --warm-soft:#2C1F13;
       --good:#5FD3A0; --good-soft:#132A21; --hi:#FF8A80; --hi-soft:#2E1715;
-      --chip-bg:#6FA5FF; --chip-fg:#0D111C; --blue-hover:#1E2E4C;
+      --chip-bg:#EEF1F7; --chip-fg:#0D111C; --blue-hover:#262D3D;
     }
   }
   :root[data-theme="dark"]{
     --paper:#0D111C; --card:#151B29; --ink:#EEF1F7; --grey:#98A1B3; --line:#242C3D;
-    --blue:#6FA5FF; --blue-soft:#16233C; --warm:#FFA351; --warm-soft:#2C1F13;
+    --blue:#6FA5FF; --blue-soft:#1C2230; --warm:#FFA351; --warm-soft:#2C1F13;
     --good:#5FD3A0; --good-soft:#132A21; --hi:#FF8A80; --hi-soft:#2E1715;
-    --chip-bg:#6FA5FF; --chip-fg:#0D111C; --blue-hover:#1E2E4C;
+    --chip-bg:#EEF1F7; --chip-fg:#0D111C; --blue-hover:#262D3D;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);
@@ -335,6 +335,14 @@
 .next li:not(:last-child)::after{content:"";position:absolute;left:15px;top:32px;bottom:2px;width:2px;background:var(--line)}
 .next .nn{flex:0 0 32px;height:32px;border-radius:50%;background:var(--blue-soft);color:var(--blue);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
 .next b{display:block;font-size:15.5px}.next div span{display:block;font-size:14.5px;color:var(--grey)}
+/* calmer palette: blue only for links and key accents */
+.sh .tile svg,.tico svg,.who .ic svg{stroke:var(--ink)}
+.abar a,.ttab.on,.pill,.chip,.next .nn{color:var(--ink)}
+.sub{color:var(--grey)}
+.hero-q{border-left-color:var(--ink)}
+.tile2.blue .big{color:var(--ink)}
+.plus::before,.plus::after{background:var(--ink)}
+ul li::before{background:var(--grey)}
 </style>
 
 <div class="wrap">
