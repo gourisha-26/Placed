@@ -556,26 +556,28 @@
   });
 </script>
 <style>
-/* shared palette: neutral surfaces, one violet accent */
-:root{--acc:#6D4AE0;--acc-soft:#F1EDFD;--tint:#F3F2F0}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--acc:#B4A2FF;--acc-soft:#262041;--tint:#1C212D}}
-:root[data-theme="dark"]{--acc:#B4A2FF;--acc-soft:#262041;--tint:#1C212D}
+/* shared palette: colours from the placED app (app/globals.css) */
+:root{--paper:#f8f9fc;--card:#ffffff;--ink:#11182b;--grey:#687286;--line:#e5e8ef;
+  --warm:#b35400;--warm-soft:#fff1e3;--good:#0e7a4e;--good-soft:#dff3e8;--hi:#c0392b;--hi-soft:#fde7e7;
+  --acc:#1b4fd8;--acc-soft:#e8f0ff;--acc2:#ff7900;--tint:#f1f3f4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--acc:#8fb2f0;--acc-soft:#16233C;--acc2:#ffa351;--tint:#1C212D}}
+:root[data-theme="dark"]{--acc:#8fb2f0;--acc-soft:#16233C;--acc2:#ffa351;--tint:#1C212D}
 .sh .tile,.tico{background:var(--acc-soft)}
 .sh .tile svg,.tico svg{stroke:var(--acc)}
 .who .ic{background:var(--tint)}.who .ic svg{stroke:var(--ink)}
 .sub{color:var(--acc)}
+.pages a{color:var(--grey)}
 .pages a[aria-current]{background:var(--acc-soft);color:var(--acc)}
 .abar a,.ttab{background:var(--tint);color:var(--ink)}
 .abar a:hover,.ttab:hover{background:var(--line)}
 .abar a.on,.ttab.on{background:var(--acc);color:#fff}
 .pill,.chip{background:var(--tint);color:var(--ink)}
 .quote{background:var(--tint)}
-.hero-q{border-left-color:var(--acc)}
-.next .nn{background:var(--acc-soft);color:var(--acc)}
+.hero-q{border-left-color:var(--acc2)}
+.next .nn{background:var(--warm-soft);color:var(--warm)}
 .tile2.blue{background:var(--tint)}.tile2.blue .big{color:var(--ink)}
 .plus{background:var(--acc-soft)}.plus::before,.plus::after{background:var(--acc)}
-ul li::before{background:var(--acc)}
+ul li::before{background:var(--acc2)}
 a{color:var(--acc)}
-.pages a{color:var(--grey)}
 .o .plug{color:#fff}
 </style>
