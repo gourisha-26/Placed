@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const DEVICE_H = 852;
 const CHROME = 64; // breathing room around the device on desktop
@@ -16,6 +17,12 @@ const CHROME = 64; // breathing room around the device on desktop
 const DEVICE_W = 393;
 
 export function PhoneShell({ children }: { children: React.ReactNode }) {
+  // the presenter page draws its own phone around an iframe of the app
+  if (usePathname()?.startsWith("/present")) return <>{children}</>;
+  return <Shell>{children}</Shell>;
+}
+
+function Shell({ children }: { children: React.ReactNode }) {
   const [scale, setScale] = useState(1);
   // on a phone the 393px canvas is scaled to whatever width the device
   // actually has, so the layout is proportionally identical everywhere
