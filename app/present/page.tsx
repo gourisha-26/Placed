@@ -84,24 +84,24 @@ export default function Present() {
             onClick={() => start(f.start, f.n)}
             className={`text-left rounded-2xl border px-4 py-3 transition-colors ${
               active === f.n
-                ? "bg-brand text-white border-brand"
+                ? "bg-brand-light border-blueline"
                 : "bg-white border-hairline hover:border-blueline"
             }`}
           >
             <span className="flex items-center gap-3">
               <span
                 className={`grid place-items-center size-7 shrink-0 rounded-full text-sm font-bold ${
-                  active === f.n ? "bg-white/20" : "bg-brand-light text-brand"
+                  active === f.n ? "bg-brand text-white" : "bg-brand-light text-brand"
                 }`}
               >
                 {f.n}
               </span>
               <span>
                 <span className="block font-semibold">{f.title}</span>
-                <span className={`block text-sm ${active === f.n ? "text-white/80" : "text-grey"}`}>{f.line}</span>
+                <span className={`block text-sm ${"text-grey"}`}>{f.line}</span>
               </span>
             </span>
-            {active === f.n && <span className="block mt-2 text-xs font-semibold text-white/80">Tap again to restart</span>}
+            {active === f.n && <span className="block mt-2 text-xs font-semibold text-brand">Tap again to restart</span>}
           </button>
         ))}
         <button
